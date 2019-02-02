@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour
         public GameObject laser;
         public float length;
         [HideInInspector]
-        public LineRenderer line => laser.GetComponent<LineRenderer>(); 
+        public LineRenderer line => laser.GetComponent<LineRenderer>();
     }
 
     public Transform muzzle;
@@ -23,10 +23,13 @@ public class Weapon : MonoBehaviour
 
     private PlayerInput _input;
     private bool _isFiring;
+    // gotta ignore this when firin lazors
+    private GameObject _ship;
 
     private void Start()
     {
         _input = Game.Instance.PlayerInput;
+        _ship = GetComponentInParent<ShipMovement>().gameObject;
     }
 
     void Update()
@@ -37,32 +40,28 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        DrawLasers();
-    }
-
-    private void DrawLasers()
-    {
-        weaponLaser.line.positionCount = 0;
-        targetingLaser.line.positionCount = 0;
-
-        if (_isFiring)
-        {
-            DrawLaser(weaponLaser);
-        }
-        else
+        if (!_isFiring)
         {
             DrawLaser(targetingLaser);
         }
+        else
+        {
+            targetingLaser.line.positionCount = 0;
+        }
     }
 
-    private void DrawLaser(Laser laser)
+    private void DrawLaser(Laser laser, float distance = -1)
     {
         laser.line.positionCount = 2;
 
         var start = muzzle.transform.position;
-        var end = start + muzzle.up * laser.length;
+        if (distance == -1)
+        {
+            distance = laser.length;
+        }
+        var end = start + muzzle.up * distance;
         var positions = new[] { start, end };
 
         laser.line.SetPositions(positions);
@@ -71,7 +70,34 @@ public class Weapon : MonoBehaviour
     private IEnumerator FireLaser()
     {
         _isFiring = true;
-        yield return new WaitWhile(() => _input.GetFiring());
+
+        do
+        {
+            var hits = Physics2D.RaycastAll(muzzle.transform.position, muzzle.up, weaponLaser.length);
+
+            // filter out the ship firing the weapon
+            hits = hits
+                .Where(h => h.collider.gameObject != _ship)
+                .ToArray();
+
+            hits = hits
+                .OrderBy(h => h.distance)
+                .ToArray();
+
+            if (!hits.Any())
+            {
+                DrawLaser(weaponLaser);
+            }
+            else
+            {
+                DrawLaser(weaponLaser, hits[0].distance);
+            }
+
+            yield return new WaitForFixedUpdate();
+
+        } while (_input.GetFiring());
+
+        weaponLaser.line.positionCount = 0;
         _isFiring = false;
     }
 }
