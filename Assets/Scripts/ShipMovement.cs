@@ -15,6 +15,9 @@ public class ShipMovement : MonoBehaviour
     public float acceleration;
     [Range(0, 1)]
     public float rotationSpeed;
+    public GameObject[] weapons;
+    [Range(0, 1)]
+    public float weaponRotationSpeed;
 
     private Rigidbody2D _rb;
     private PlayerInput _input;
@@ -32,8 +35,9 @@ public class ShipMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Movement();
-        Rotate();
+        RotateShip();
         // aim weapons
+        RotateWeapons();
     }
 
     private void Movement()
@@ -41,11 +45,25 @@ public class ShipMovement : MonoBehaviour
         _rb.AddForce(_input.GetMovement() * acceleration);
     }
 
-    private void Rotate()
+    private void RotateShip()
     {
         var aimDir = _input.GetAimDirection();
         var lookDir = Vector3.Lerp(transform.up, aimDir, rotationSpeed);
 
         transform.rotation *= Quaternion.FromToRotation(transform.up, lookDir);
+    }
+
+    private void RotateWeapons()
+    {
+        var targetPos = _input.GetMousePosition();
+
+        foreach (var w in weapons)
+        {
+            var aimDir = _input.GetAimDirection(w.transform.position);
+
+            var target = Quaternion.LookRotation(transform.forward, aimDir);
+
+            w.transform.rotation = Quaternion.Lerp(w.transform.rotation, target, weaponRotationSpeed);
+        }
     }
 }
