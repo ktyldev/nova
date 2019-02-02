@@ -681,6 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20202468dbac0f148873505781a6900e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceleration: 2
   rotationSpeed: 0.1
 --- !u!50 &1397449207
 Rigidbody2D:
@@ -695,7 +696,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
