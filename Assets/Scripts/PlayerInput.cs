@@ -4,15 +4,42 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    public enum MovementType
+    {
+        Absolute,
+        Relative
+    }
+    public MovementType movementType;
+
     /// <summary>
     /// Get a vector representing the current values of the movement input.
     /// </summary>
     /// <returns></returns>
     public Vector2 GetMovement()
     {
-        return new Vector2(
-            Input.GetAxis(GameConstants.Axis_Horizontal), 
-            Input.GetAxis(GameConstants.Axis_Vertical)).normalized;
+        float h = Input.GetAxis(GameConstants.Axis_Horizontal);
+        float v = Input.GetAxis(GameConstants.Axis_Vertical);
+
+        Vector2 movement;
+
+        switch (movementType)
+        {
+            case MovementType.Absolute:
+                movement = new Vector2(h, v);
+                break;
+
+            case MovementType.Relative:
+                var right = Game.Instance.player.transform.right * h;
+                var forward = Game.Instance.player.transform.up * v;
+
+                movement = (right + forward);
+                break;
+
+            default:
+                throw new System.Exception();
+        }
+
+        return movement.normalized;
     }
 
     /// <summary>
