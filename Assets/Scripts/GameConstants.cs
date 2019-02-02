@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameConstants  
 {
     // Input Axes
-    public const string Horizontal = "Horizontal";
-    public const string Vertical = "Vertical";
-    public const string Fire1 = "Fire1";
+    public const string Axis_Horizontal = "Horizontal";
+    public const string Axis_Vertical = "Vertical";
+    public const string Axis_Fire1 = "Fire1";
 }

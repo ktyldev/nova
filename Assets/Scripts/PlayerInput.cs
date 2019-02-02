@@ -11,8 +11,8 @@ public class PlayerInput : MonoBehaviour
     public Vector2 GetMovement()
     {
         return new Vector2(
-            Input.GetAxis(GameConstants.Horizontal), 
-            Input.GetAxis(GameConstants.Vertical));
+            Input.GetAxis(GameConstants.Axis_Horizontal), 
+            Input.GetAxis(GameConstants.Axis_Vertical));
     }
 
     /// <summary>
@@ -46,5 +46,32 @@ public class PlayerInput : MonoBehaviour
     public Vector2 GetAimDirection(Vector2 origin)
     {
         return (GetMousePosition() - origin).normalized;
+    }
+
+    /// <summary>
+    /// Get whether the player is firing.
+    /// </summary>
+    /// <returns></returns>
+    public bool GetFiring()
+    {
+        return Input.GetButton(GameConstants.Axis_Fire1);
+    }
+
+    /// <summary>
+    /// Get whether the player started firing this frame.
+    /// </summary>
+    /// <returns></returns>
+    public bool GetStartFiring()
+    {
+        return Input.GetButtonDown(GameConstants.Axis_Fire1);
+    }
+
+    /// <summary>
+    /// Get whether the player stopped firing this frame.
+    /// </summary>
+    /// <returns></returns>
+    public bool GetStopFiring()
+    {
+        return Input.GetButtonUp(GameConstants.Axis_Fire1);
     }
 }
