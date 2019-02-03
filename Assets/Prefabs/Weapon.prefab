@@ -48,12 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1352703372087346270}
-  targetingLaser:
-    laser: {fileID: 2023342590597632009}
-    length: 5
-  weaponLaser:
-    laser: {fileID: 7099160491220438824}
-    length: 100
+  weaponLaser: {fileID: 7099160491220438824}
+  targeting: {fileID: 2023342590597632009}
 --- !u!1 &2023342590597632009
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,6 +60,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7004345906481949817}
   - component: {fileID: 5112946425212322803}
+  - component: {fileID: 657131697639352507}
   m_Layer: 0
   m_Name: TargetingLaser
   m_TagString: Untagged
@@ -180,6 +177,23 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &657131697639352507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023342590597632009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dd125c4a2d94648841e1cee063e5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startActive: 1
+  length: 5
+  occlude: 0
+  emitter: {fileID: 1352703372087346270}
+  ignore: []
 --- !u!1 &2540861429201064054
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39681657457834480}
   - component: {fileID: 1212657601823974228}
+  - component: {fileID: 5596749154558457214}
   m_Layer: 0
   m_Name: WeaponLaser
   m_TagString: Untagged
@@ -415,3 +430,21 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &5596749154558457214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099160491220438824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dd125c4a2d94648841e1cee063e5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startActive: 0
+  length: 100
+  occlude: 1
+  emitter: {fileID: 1352703372087346270}
+  ignore:
+  - {fileID: 0}
