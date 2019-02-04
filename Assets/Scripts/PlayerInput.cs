@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour, IInputProvider
 {
     public enum MovementType
     {
@@ -15,90 +13,61 @@ public class PlayerInput : MonoBehaviour
     /// Get a vector representing the current values of the movement input.
     /// </summary>
     /// <returns></returns>
-    public Vector2 GetMovement()
+    public Vector2 AccelerationDir
     {
-        float h = Input.GetAxis(GameConstants.Axis_Horizontal);
-        float v = Input.GetAxis(GameConstants.Axis_Vertical);
-
-        Vector2 movement;
-
-        switch (movementType)
+        get
         {
-            case MovementType.Absolute:
-                movement = new Vector2(h, v);
-                break;
+            float h = Input.GetAxis(GameConstants.Axis_Horizontal);
+            float v = Input.GetAxis(GameConstants.Axis_Vertical);
 
-            case MovementType.Relative:
-                var right = Game.Instance.player.transform.right * h;
-                var forward = Game.Instance.player.transform.up * v;
+            Vector2 movement;
 
-                movement = (right + forward);
-                break;
+            switch (movementType)
+            {
+                case MovementType.Absolute:
+                    movement = new Vector2(h, v);
+                    break;
 
-            default:
-                throw new System.Exception();
+                case MovementType.Relative:
+                    var right = Game.Instance.player.transform.right * h;
+                    var forward = Game.Instance.player.transform.up * v;
+
+                    movement = (right + forward);
+                    break;
+
+                default:
+                    throw new System.Exception();
+            }
+
+            return movement.normalized;
         }
-
-        return movement.normalized;
     }
 
     /// <summary>
     /// Get the mouse position with the z component zeroed out.
     /// </summary>
     /// <returns></returns>
-    public Vector2 GetMousePosition()
+    public Vector2 TargetPosition
     {
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        // unity's 2D is dumb
-        mousePos.z = 0;
+        get
+        {
+            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // unity's 2D is dumb
+            mousePos.z = 0;
 
-        return mousePos;
-    }
-
-    /// <summary>
-    /// Get the direction from the player to the mouse position.
-    /// </summary>
-    /// <returns></returns>
-    public Vector2 GetAimDirection()
-    {
-        var playerPos = (Vector2)Game.Instance.player.transform.position;
-        return (GetMousePosition() - playerPos).normalized;
-    }
-
-    /// <summary>
-    /// Get the vector from a custom position to the mouse position.
-    /// </summary>
-    /// <param name="origin"></param>
-    /// <returns></returns>
-    public Vector2 GetAimDirection(Vector2 origin)
-    {
-        return (GetMousePosition() - origin).normalized;
+            return mousePos;
+        }
     }
 
     /// <summary>
     /// Get whether the player is firing.
     /// </summary>
     /// <returns></returns>
-    public bool GetFiring()
+    public bool IsFiring
     {
-        return Input.GetButton(GameConstants.Axis_Fire1);
-    }
-
-    /// <summary>
-    /// Get whether the player started firing this frame.
-    /// </summary>
-    /// <returns></returns>
-    public bool GetStartFiring()
-    {
-        return Input.GetButtonDown(GameConstants.Axis_Fire1);
-    }
-
-    /// <summary>
-    /// Get whether the player stopped firing this frame.
-    /// </summary>
-    /// <returns></returns>
-    public bool GetStopFiring()
-    {
-        return Input.GetButtonUp(GameConstants.Axis_Fire1);
+        get
+        {
+            return Input.GetButton(GameConstants.Axis_Fire1);
+        }
     }
 }

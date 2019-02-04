@@ -10,13 +10,15 @@ public class Thruster : MonoBehaviour
     // what direction is the thruster pointing in
     private Vector2 ExhaustDir => transform.up;
 
-    private PlayerInput _input;
+    private IInputProvider _input;
     private Vector3 _originalScale;
 
     // Start is called before the first frame update
     void Start()
     {
-        _input = Game.Instance.PlayerInput;
+        var ship = GetComponentInParent<Ship>();
+        _input = ship.InputProvider;
+
         _originalScale = plume.transform.localScale;
         SetPlumeScale(0);
     }
@@ -25,10 +27,12 @@ public class Thruster : MonoBehaviour
     {
         float scale;
 
-        var movement = _input.GetMovement();
-        scale = Vector3.Dot(movement, ExhaustDir);
+        var dir = _input.AccelerationDir;
+        scale = Vector3.Dot(dir, ExhaustDir);
 
-        if (movement.magnitude == 0 || scale <= 0)
+        // not accelerating, or accelerating in the opposite direction to
+        // thruster exhaust
+        if (dir.magnitude == 0 || scale <= 0)
         {
             scale = 0;
         }

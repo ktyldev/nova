@@ -11,18 +11,16 @@ public class Weapon : MonoBehaviour
     public GameObject weaponLaser;
     public GameObject targeting;
 
-    private PlayerInput _input;
+    private IInputProvider _input;
     private bool _isFiring;
-    // gotta ignore this when firin lazors
-    private GameObject _ship;
 
     private Laser _laser;
     private Laser _targeting;
 
     private void Start()
     {
-        _input = Game.Instance.PlayerInput;
-        _ship = GetComponentInParent<ShipMovement>().gameObject;
+        var ship = GetComponentInParent<Ship>();
+        _input = ship.InputProvider;
 
         _laser = weaponLaser.GetComponent<Laser>();
         _targeting = targeting.GetComponent<Laser>();
@@ -30,8 +28,9 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (_input.GetStartFiring())
+        if (!_isFiring && _input.IsFiring)
         {
+            _isFiring = true;
             StartCoroutine(FireLaser());
         }
     }
@@ -41,9 +40,11 @@ public class Weapon : MonoBehaviour
         _targeting.SetActive(false);
         _laser.SetActive(true);
 
-        yield return new WaitWhile(() => _input.GetFiring());
+        yield return new WaitWhile(() => _input.IsFiring);
+
+        _isFiring = false;
+        _laser.SetActive(false);
 
         _targeting.SetActive(true);
-        _laser.SetActive(false);
     }
 }
