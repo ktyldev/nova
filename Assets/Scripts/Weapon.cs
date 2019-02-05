@@ -6,6 +6,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public Transform muzzle;
+    public float damagePerSecond;
 
     [Header("Lasers")]
     public GameObject weaponLaser;
@@ -46,5 +47,21 @@ public class Weapon : MonoBehaviour
         _laser.SetActive(false);
 
         _targeting.SetActive(true);
+    }
+
+    private IEnumerator DoLaserDamage()
+    {
+        while (_isFiring)
+        {
+            yield return new WaitForSeconds(1);
+            if (!_isFiring)
+                break;
+
+            var health = _laser.Occluder.GetComponent<Health>();
+            if (health == null)
+                continue;
+
+            health.TakeDamage(damagePerSecond);
+        }
     }
 }
