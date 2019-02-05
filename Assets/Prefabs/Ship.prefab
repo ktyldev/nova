@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068d519bbacae0d4b809d192d732e312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 0
+  start: 3
   hit:
     m_PersistentCalls:
       m_Calls: []
@@ -591,6 +591,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: damagePerSecond
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 747374511655634426, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}

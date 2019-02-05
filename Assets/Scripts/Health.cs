@@ -5,16 +5,46 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
+    public class HealthUpdateEvent : UnityEvent<float> { }
+
     public float start;
-    public UnityEvent hit = new UnityEvent();
+    public UnityEvent<float> hit = new HealthUpdateEvent();
+    public UnityEvent death = new UnityEvent();
 
     private float _current;
 
     public float Normalised => _current / start;
 
+    private void Awake()
+    {
+        _current = start;
+    }
+
+    private void Start()
+    {
+        hit.AddListener(_ => print(ToString()));
+        death.AddListener(() => print(ToString() + " - dead"));
+    }
+
     public void TakeDamage(float damage)
     {
+        // we're dead, can't take any more damage
+        if (_current == 0)
+            return;
+
         _current -= damage;
-        hit.Invoke();
+        if (_current <= 0)
+        {
+            _current = 0;
+            death.Invoke();
+            return;
+        }
+
+        hit.Invoke(Normalised);
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0} health: {1}%", gameObject.ToString(), Normalised * 100);
     }
 }

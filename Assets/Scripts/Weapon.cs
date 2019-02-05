@@ -41,7 +41,28 @@ public class Weapon : MonoBehaviour
         _targeting.SetActive(false);
         _laser.SetActive(true);
 
-        yield return new WaitWhile(() => _input.IsFiring);
+        float elapsed = 0;
+        float damageInterval = 0.2f;    // do damage every 0.2 seconds
+        float damageChunk = damagePerSecond * damageInterval;
+
+        while (_input.IsFiring)
+        {
+            yield return new WaitForEndOfFrame();
+
+            elapsed += Time.deltaTime;
+            if (elapsed < damageInterval)
+                continue;
+
+            // go back so the interval check will fail next frame
+            elapsed -= damageInterval;
+
+            // damage interval has passed, look for a health component and smack it
+            var health = _laser.Occluder?.GetComponent<Health>();
+            if (health == null)
+                continue;
+
+            health.TakeDamage(damageChunk);
+        }
 
         _isFiring = false;
         _laser.SetActive(false);
@@ -54,10 +75,10 @@ public class Weapon : MonoBehaviour
         while (_isFiring)
         {
             yield return new WaitForSeconds(1);
-            if (!_isFiring)
-                break;
+            if (!_input.IsFiring)
+                yield break;
 
-            var health = _laser.Occluder.GetComponent<Health>();
+            var health = _laser.Occluder?.GetComponent<Health>();
             if (health == null)
                 continue;
 
