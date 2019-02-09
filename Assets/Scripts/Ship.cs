@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // provides common references for other scripts in the ship hierarchy
 public class Ship : MonoBehaviour
@@ -12,5 +10,12 @@ public class Ship : MonoBehaviour
     private void Awake()
     {
         InputProvider = inputProvider.GetComponent<IInputProvider>();
+    }
+
+    // TODO: play explosion sound
+    public void Die()
+    {
+        Instantiate(Game.Instance.explosion, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
