@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(Ship))]
-public class ShipMovement : MonoBehaviour
+public class ShipMovement : NetworkBehaviour
 {
     // TODO: 
     // make movement more sophisticated. it should be faster for the ship
@@ -31,6 +32,10 @@ public class ShipMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // only process input if this is the local player
+        if (!isLocalPlayer)
+            return;
+
         Movement();
         RotateShip();
         RotateWeapons();
