@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1352703372087346270}
+  damagePerSecond: 1
   weaponLaser: {fileID: 7099160491220438824}
   targeting: {fileID: 2023342590597632009}
 --- !u!1 &2023342590597632009

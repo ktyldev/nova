@@ -15,6 +15,10 @@ public class FollowCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // TODO: follow local player
+        if (target == null)
+            return;
+
         var targetPosition = target.transform.position;
         targetPosition.z = _z;
 

@@ -6,7 +6,6 @@ public class Game : MonoBehaviour
 {
     public static Game Instance { get; private set; }
 
-    public GameObject player;
     public GameObject explosion;
 
     private void Awake()

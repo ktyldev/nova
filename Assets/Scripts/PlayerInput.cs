@@ -29,8 +29,8 @@ public class PlayerInput : MonoBehaviour, IInputProvider
                     break;
 
                 case MovementType.Relative:
-                    var right = Game.Instance.player.transform.right * h;
-                    var forward = Game.Instance.player.transform.up * v;
+                    var right = transform.right * h;
+                    var forward = transform.up * v;
 
                     movement = (right + forward);
                     break;
