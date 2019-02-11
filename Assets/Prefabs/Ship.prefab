@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 6436429605022071033}
   - component: {fileID: 1955950413639943717}
   - component: {fileID: 2595648168379738537}
+  - component: {fileID: 4458053186658927065}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -289,7 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c767c1113b5464badd702e640aa36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputProvider: {fileID: 0}
+  inputProvider: {fileID: 7489843801454015013, guid: 8436519fe7bc3604793d2791691638c5,
+    type: 3}
 --- !u!114 &6436429605022071029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +390,39 @@ PolygonCollider2D:
       - {x: -0.5877852, y: -0.80901706}
       - {x: 0.58778536, y: -0.80901694}
       - {x: 0.9510565, y: 0.30901712}
+--- !u!114 &4458053186658927065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6436429605022071034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!1 &6436429605579064882
 GameObject:
   m_ObjectHideFlags: 0
