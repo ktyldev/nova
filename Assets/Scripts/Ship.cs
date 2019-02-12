@@ -12,6 +12,12 @@ public class Ship : NetworkBehaviour
         InputProvider = GetComponent<IInputProvider>();
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        var cam = Camera.main.GetComponent<FollowCamera>();
+        cam.target = transform;
+    }
+
     // TODO: play explosion sound
     public void Die()
     {
