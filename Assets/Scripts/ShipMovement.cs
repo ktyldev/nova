@@ -18,6 +18,7 @@ public class ShipMovement : NetworkBehaviour
 
     private Rigidbody2D _rb;
     private IInputProvider _input;
+    private Ship _ship;
 
     private void Awake()
     {
@@ -26,14 +27,14 @@ public class ShipMovement : NetworkBehaviour
 
     private void Start()
     {
-        var ship = GetComponent<Ship>();
-        _input = ship.InputProvider;
+        _ship = GetComponent<Ship>();
+        _input = _ship.InputProvider;
     }
 
     private void FixedUpdate()
     {
         // only process input if this is the local player
-        if (!isLocalPlayer)
+        if (!_ship.IsLocalPlayer)
             return;
 
         Movement();

@@ -17,11 +17,12 @@ public class Weapon : MonoBehaviour
 
     private Laser _laser;
     private Laser _targeting;
+    private Ship _ship;
 
     private void Start()
     {
-        var ship = GetComponentInParent<Ship>();
-        _input = ship.InputProvider;
+        _ship = GetComponentInParent<Ship>();
+        _input = _ship.InputProvider;
 
         _laser = weaponLaser.GetComponent<Laser>();
         _targeting = targeting.GetComponent<Laser>();
@@ -29,6 +30,9 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (!_ship.isLocalPlayer)
+            return;
+
         if (!_isFiring && _input.IsFiring)
         {
             _isFiring = true;
