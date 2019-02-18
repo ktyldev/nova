@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class MapGeneration : MonoBehaviour
+public class MapGeneration : NetworkBehaviour
 {
     public GameObject asteroid;
     public Transform asteroidsParent;
@@ -10,8 +12,19 @@ public class MapGeneration : MonoBehaviour
     public Bounds mapBounds;
     public float minSeperation;
 
+
     private void Start()
     {
+        // only spawn asteroids on the host
+        if (!isServer)
+            return;
+
+        StartCoroutine(SpawnAsteroids());
+    }
+
+    private IEnumerator SpawnAsteroids()
+    {
+        yield return new WaitUntil(() => NetworkServer.connections.Count == 2);
         GenerateAsteroids();
     }
 
@@ -26,13 +39,15 @@ public class MapGeneration : MonoBehaviour
 
             var pos = new Vector3(x, y, 0);
 
-            if (asteroids.Any() && 
+            if (asteroids.Any() &&
                 asteroids.Any(a => Vector3.Distance(a.transform.position, pos) < minSeperation))
                 continue;
 
             var newAsteroid = Instantiate(asteroid, pos, Quaternion.identity, asteroidsParent);
+            NetworkServer.Spawn(newAsteroid);
 
             asteroids.Add(newAsteroid);
         }
     }
+
 }
