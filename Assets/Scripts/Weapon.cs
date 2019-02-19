@@ -30,8 +30,8 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (!_ship.isLocalPlayer)
-            return;
+        //if (!_ship.isLocalPlayer)
+        //    return;
 
         if (!_isFiring && _input.IsFiring)
         {

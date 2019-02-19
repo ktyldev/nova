@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerInput : MonoBehaviour, IInputProvider
+public class PlayerInput : NetworkBehaviour, IInputProvider
 {
     public enum MovementType
     {
@@ -8,6 +9,9 @@ public class PlayerInput : MonoBehaviour, IInputProvider
         Relative
     }
     public MovementType movementType;
+
+    //[SyncVar]
+    private bool _isFiring;
 
     /// <summary>
     /// Get a vector representing the current values of the movement input.
@@ -63,11 +67,30 @@ public class PlayerInput : MonoBehaviour, IInputProvider
     /// Get whether the player is firing.
     /// </summary>
     /// <returns></returns>
-    public bool IsFiring
+    public bool IsFiring => _isFiring;
+
+    private void Update()
     {
-        get
+        if (!isLocalPlayer)
+            return;
+
+        bool isFiring = Input.GetButton(GameConstants.Axis_Fire1);
+        if (isFiring != _isFiring)
         {
-            return Input.GetButton(GameConstants.Axis_Fire1);
+            CmdIsFiring(isFiring);
         }
+    }
+
+    [Command]
+    private void CmdIsFiring(bool val)
+    {
+        _isFiring = val;
+        RpcIsFiring(val);
+    }
+
+    [ClientRpc]
+    private void RpcIsFiring(bool val)
+    {
+        _isFiring = val;
     }
 }
