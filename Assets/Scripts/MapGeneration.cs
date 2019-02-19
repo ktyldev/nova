@@ -6,15 +6,16 @@ using UnityEngine.Networking;
 
 public class MapGeneration : NetworkBehaviour
 {
-    public GameObject asteroid;
     public Transform asteroidsParent;
     public float maxToGenerate;
     public Bounds mapBounds;
     public float minSeperation;
 
+    private GameObject _asteroid;
 
     private void Start()
     {
+        _asteroid = Game.Instance.asteroid;
         // only spawn asteroids on the host
         if (!isServer)
             return;
@@ -24,7 +25,7 @@ public class MapGeneration : NetworkBehaviour
 
     private IEnumerator SpawnAsteroids()
     {
-        yield return new WaitUntil(() => NetworkServer.connections.Count == 2);
+        yield return new WaitUntil(() => NetworkServer.connections.Count == Game.Instance.Players);
         GenerateAsteroids();
     }
 
@@ -43,7 +44,7 @@ public class MapGeneration : NetworkBehaviour
                 asteroids.Any(a => Vector3.Distance(a.transform.position, pos) < minSeperation))
                 continue;
 
-            var newAsteroid = Instantiate(asteroid, pos, Quaternion.identity, asteroidsParent);
+            var newAsteroid = Instantiate(_asteroid, pos, Quaternion.identity, asteroidsParent);
             NetworkServer.Spawn(newAsteroid);
 
             asteroids.Add(newAsteroid);
