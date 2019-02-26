@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aac3d2fa33b09d40bd670256ec554cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 2
+  mode: 1
   explosion: {fileID: 1222983843}
   asteroid: {fileID: 406849434}
 --- !u!114 &485773754
