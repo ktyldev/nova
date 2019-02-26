@@ -104,7 +104,6 @@ public class Weapon : MonoBehaviour
 
         while(_input.IsFiring){
             elapsed += Time.deltaTime;
-            _gun = ;
             if (elapsed < fireInterval)
             {
                 _gun.Fire();

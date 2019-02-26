@@ -1004,11 +1004,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponGun
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive
@@ -1124,11 +1119,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponGun
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
@@ -1310,11 +1300,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponGun
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
@@ -1686,11 +1671,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponGun
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
