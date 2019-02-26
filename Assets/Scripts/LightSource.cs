@@ -1,157 +1,86 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class LightSource : MonoBehaviour
 {
     public float range;
     public int rays = 50;
 
-    // Start is called before the first frame update
     void Start()
     {
-
+        LightEngine.Register(this);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void DrawSide(Vector2 p1, Vector2 p2)
     {
-        // cast rays in a circle
-        //float theta = 0;
-        //for (int i = 0; i < rays; i++)
-        //{
-        //    theta = i * 360f / rays * Mathf.Deg2Rad;
-        //    var dir = new Vector2(Mathf.Sin(theta), Mathf.Cos(theta));
+        var colour = GetAngle(p1, p2) < 0 ? Color.green : Color.gray;
+        Debug.DrawLine(p1, p2, colour);
+    }
 
-        //    var hit = Physics2D.Raycast(transform.position, dir, range, LayerMask.GetMask("Asteroid"));
-        //    if (hit.collider != null)
-        //    {
-        //        Debug.DrawLine(transform.position, hit.transform.position, Color.red);
-        //    }
-        //    else
-        //    {
-        //        Debug.DrawLine(transform.position, (Vector2)transform.position + dir * range, Color.green);
-        //    }
-        //}
+    private float GetAngle(Vector2 p1, Vector2 p2)
+    {
+        return Vector2.SignedAngle(p1, p2);
+    }
 
+    public Vector2 Raycast(Vector2 dir, Color colour)
+    {
+        dir.Normalize();
         var mask = LayerMask.GetMask("Asteroid");
 
-        var hits = Physics2D.CircleCastAll(
-            transform.position,
-            range,
-            Vector2.zero,
-            range,
-            mask);
+        var hit = Physics2D.Raycast(transform.position, dir, range, mask);
+        var v = hit.collider != null ? dir * hit.distance : dir * range;
+        var end = (Vector2)transform.position + v;
 
-        foreach (var h in hits)
-        {
-            var collider = h.collider as PolygonCollider2D;
-            //Debug.DrawLine(transform.position, h.transform.position, Color.green);
+        Debug.DrawLine(transform.position, end, colour);
 
-            // find the limits of each collider
-            var ho = FindEdges(collider);
+        return end;
 
-            var m = 0.01f;
-            // raycast towards limits, might be stopped on the way
-            var dLeft = (Vector3)ho.left - transform.position;
-            var rotLeft = Quaternion.Euler(0, 0, -m);
-            var dLeft2 = rotLeft * dLeft.normalized * range;
-
-            var dRight = (Vector3)ho.right - transform.position;
-            var rotRight = Quaternion.Euler(0, 0, m);
-            var dRight2 = rotRight * dRight.normalized * range;
-
-            // raycast just to the left (clockwise) of the object
-            DrawRay(dLeft2, Color.red);
-
-            //var hitLeft2 = Physics2D.Raycast(transform.position, dLeft2.normalized, range, mask);
-            //if (hitLeft2.collider != null)
-            //{
-            //    Debug.DrawLine(transform.position, hitLeft2.transform.position, Color.red);
-            //}
-            //else
-            //{
-            //    Debug.DrawLine(transform.position, transform.position + dLeft2, Color.red);
-            //}
-
-            // raycast just anticlockwise of the object
-            DrawRay(dRight2, Color.magenta);
-
-            //var hitRight2 = Physics2D.Raycast(transform.position, dRight2.normalized, range, mask);
-            //if (hitRight2.collider != null)
-            //{
-            //    Debug.DrawLine(transform.position, hitRight2.transform.position, Color.magenta);
-            //}
-            //else
-            //{
-            //    Debug.DrawLine(transform.position, transform.position + dRight2, Color.magenta);
-            //}
-
-            // raycast towards the clockwise edge of the object
-            DrawRay(dLeft, Color.green);
-
-            //Debug.DrawLine(transform.position, transform.position + dLeft, Color.green);
-
-            // raycast towards the anticlickwise edge of the object
-            DrawRay(dRight, Color.blue);
-
-            //Debug.DrawLine(transform.position, transform.position + dRight, Color.blue);
-        }
     }
 
-    private void DrawRay(Vector2 dir, Color colour)
+    public HitObject FindEdges(PolygonCollider2D collider)
     {
-        var mask = LayerMask.GetMask("Asteroid");
-        var hit = Physics2D.Raycast(transform.position, dir.normalized, range, mask);
-        if (hit.collider != null)
+        var toCentre = collider.transform.position - transform.position;
+        var colliderPos = (Vector2)collider.transform.position;
+
+        HitVertex v;
+        var o = new HitObject();
+
+        for (int i = 0; i < collider.points.Length; i++)
         {
-            Debug.DrawLine(transform.position, hit.transform.position, colour);
-        }
-        else
-        {
-            Debug.DrawLine(transform.position, (Vector2)transform.position + dir, colour);
-        }
-    }
+            var worldPos = colliderPos + collider.points[i] * collider.transform.localScale;
+            var toVert = worldPos - (Vector2)transform.position;
 
-    private struct HitObject
-    {
-        public Vector2 left;
-        public Vector2 right;
-    }
+            var angleFromCentre = Vector2.SignedAngle(toCentre.normalized, toVert.normalized);
 
-    private HitObject FindEdges(PolygonCollider2D collider)
-    {
-        var v = collider.transform.position - transform.position;
-
-        var ho = new HitObject();
-
-        float lAngle = 0f;
-        float rAngle = 0f;
-
-        foreach (var point in collider.points)
-        {
-            var p = (Vector2)collider.transform.position + point * collider.transform.localScale;
-
-            var v2 = p - (Vector2)transform.position;
-            float a = Vector2.SignedAngle(v, v2);
-
-            if (a < 0)
+            v = new HitVertex
             {
-                if (a < lAngle)
-                {
-                    lAngle = a;
-                    ho.left = p;
-                }
+                worldPosition = worldPos,
+                angleFromCentre = angleFromCentre
+            };
+
+            if (v.angleFromCentre < o.right.angleFromCentre)
+            {
+                o.right = v;
             }
-            else
+            else if (v.angleFromCentre >= o.left.angleFromCentre)
             {
-                if (a > rAngle)
-                {
-                    rAngle = a;
-                    ho.right = p;
-                }
+                o.left = v;
             }
         }
 
-        return ho;
-
+        return o;
     }
+}
+
+public struct HitObject
+{
+    public HitVertex left;
+    public HitVertex right;
+}
+
+public struct HitVertex
+{
+    public Vector2 worldPosition;
+    public float angleFromCentre;
 }
