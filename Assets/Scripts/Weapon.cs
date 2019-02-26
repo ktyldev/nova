@@ -11,9 +11,12 @@ public class Weapon : MonoBehaviour
     [Header("Lasers")]
     public GameObject weaponLaser;
     public GameObject targeting;
+    public GameObject weaponGun;
 
     private IInputProvider _input;
     private bool _isFiring;
+
+    private Gun _gun;
 
     private Laser _laser;
     private Laser _targeting;
@@ -26,6 +29,8 @@ public class Weapon : MonoBehaviour
 
         _laser = weaponLaser.GetComponent<Laser>();
         _targeting = targeting.GetComponent<Laser>();
+
+        _gun = weaponGun.GetComponent<Gun>();
     }
 
     void Update()
@@ -36,7 +41,8 @@ public class Weapon : MonoBehaviour
         if (!_isFiring && _input.IsFiring)
         {
             _isFiring = true;
-            StartCoroutine(FireLaser());
+            //StartCoroutine(FireLaser());
+            StartCoroutine(FireBullet());
         }
     }
 
@@ -88,5 +94,39 @@ public class Weapon : MonoBehaviour
 
             health.TakeDamage(damagePerSecond);
         }
+    }
+
+    private IEnumerator FireBullet()
+    {
+        _targeting.SetActive(false);
+        float elapsed = 0;
+        float fireInterval = 0.3f;
+
+        while(_input.IsFiring){
+            elapsed += Time.deltaTime;
+            _gun = ;
+            if (elapsed < fireInterval)
+            {
+                _gun.Fire();
+                Debug.Log("bullet");
+            }
+
+            elapsed -= fireInterval;
+
+
+            _isFiring = false;
+            _targeting.SetActive(true);
+            yield break;
+        }
+
+
+    }
+
+    private IEnumerator BulletDamage()
+    {
+
+
+
+        yield break;
     }
 }
