@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a00ca062fc3cc43adbeb756a437a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 2
+  acceleration: 20
   rotationSpeed: 0.1
   weapons:
   - {fileID: 6436429604571771101}
