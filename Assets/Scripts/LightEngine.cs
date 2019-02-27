@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LightEngine : MonoBehaviour
@@ -21,6 +22,8 @@ public class LightEngine : MonoBehaviour
     protected void RegisterSource(LightSource source)
     {
         var go = new GameObject();
+        go.transform.SetParent(meshParent);
+        go.transform.localPosition = Vector3.zero;
 
         var f = go.AddComponent<MeshFilter>();
         f.mesh = new Mesh();
@@ -38,12 +41,6 @@ public class LightEngine : MonoBehaviour
 
         Instance = this;
         _mask = LayerMask.GetMask("Asteroid");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void FixedUpdate()
@@ -66,6 +63,16 @@ public class LightEngine : MonoBehaviour
             _mask);
 
         var verts = new List<Vector3> { lsPos };
+        var rays = new List<LightRay>();
+        System.Action<Vector2, Vector2> addRay = (d, p) =>
+        {
+            rays.Add(new LightRay
+            {
+                angle = Vector2.SignedAngle(Vector2.up, d) + 180,
+                end = p
+            });
+        };
+
         for (int i = 0; i < hits.Length; i++)
         {
             var collider = hits[i].collider as PolygonCollider2D;
@@ -86,20 +93,38 @@ public class LightEngine : MonoBehaviour
             var innerL = source.Raycast(dLeftInner, Color.cyan);
             var innerR = source.Raycast(dRightInner, Color.magenta);
 
-            verts.Add(innerL);
-            verts.Add(innerR);
+            addRay(dLeftInner, innerL);
+            addRay(dRightInner, innerR);
 
-            // TODO: handle outer rays
+            var outerL = source.Raycast(dLeftOuter, Color.blue);
+            var outerR = source.Raycast(dRightOuter, Color.red);
+
+            addRay(dLeftOuter, outerL);
+            addRay(dRightOuter, outerR);
+        }
+
+        // TODO: expunge linq
+        rays = rays.OrderBy(r => r.angle).ToList();
+
+        foreach (var r in rays)
+        {
+            verts.Add(r.end);
         }
 
         var indices = new List<int>();
 
-        for (int i = 1; i <= verts.Count - 1; i+=2)
+        // i = 0 is mesh centre
+        // get vert[i] and vert[i-1] to construct tris
+        for (int i = 2; i < verts.Count; i++)
         {
+            indices.Add(i - 1);
             indices.Add(i);
-            indices.Add(i + 1);
             indices.Add(0);
         }
+        // join last tri
+        indices.Add(verts.Count - 1);
+        indices.Add(1);
+        indices.Add(0);
 
         var mesh = _sources[source];
         mesh.Clear();

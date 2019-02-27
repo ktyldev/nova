@@ -5,7 +5,6 @@ using UnityEngine;
 public class LightSource : MonoBehaviour
 {
     public float range;
-    public int rays = 50;
 
     void Start()
     {
@@ -71,6 +70,12 @@ public class LightSource : MonoBehaviour
 
         return o;
     }
+}
+
+public struct LightRay
+{
+    public float angle;
+    public Vector2 end;
 }
 
 public struct HitObject

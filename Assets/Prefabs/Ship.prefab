@@ -203,8 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b7e86feaac99842a3a6961aeebb329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 20
-  rays: 50
+  range: 50
 --- !u!23 &5491502904670694217
 MeshRenderer:
   m_ObjectHideFlags: 0
