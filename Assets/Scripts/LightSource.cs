@@ -22,18 +22,25 @@ public class LightSource : MonoBehaviour
         return Vector2.SignedAngle(p1, p2);
     }
 
-    public Vector2 Raycast(Vector2 dir, Color colour)
+    public LightRay Raycast(Vector2 dir, Color colour)
     {
         dir.Normalize();
         var mask = LayerMask.GetMask("Asteroid");
 
-        var hit = Physics2D.Raycast(transform.position, dir, range, mask);
-        var v = hit.collider != null ? dir * hit.distance : dir * range;
+        var raycastHit = Physics2D.Raycast(transform.position, dir, range, mask);
+        bool hit = raycastHit.collider != null;
+
+        var v = hit ? dir * raycastHit.distance : dir * range;
         var end = (Vector2)transform.position + v;
 
         Debug.DrawLine(transform.position, end, colour);
 
-        return end;
+        return new LightRay
+        {
+            angle = Vector2.SignedAngle(Vector2.up, dir) + 180,
+            end = end,
+            hit = hit
+        };
 
     }
 
@@ -76,6 +83,7 @@ public struct LightRay
 {
     public float angle;
     public Vector2 end;
+    public bool hit;
 }
 
 public struct HitObject

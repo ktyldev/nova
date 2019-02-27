@@ -6,6 +6,8 @@ public class LightEngine : MonoBehaviour
 {
     public Transform meshParent;
     public Material lightMat;
+    // how many vertices make up the circle around the edge of light sources
+    public int circlePoints = 50;
 
     public static LightEngine Instance { get; private set; }
 
@@ -62,17 +64,17 @@ public class LightEngine : MonoBehaviour
             source.range,
             _mask);
 
-        var verts = new List<Vector3> { lsPos };
-        var rays = new List<LightRay>();
-        System.Action<Vector2, Vector2> addRay = (d, p) =>
-        {
-            rays.Add(new LightRay
-            {
-                angle = Vector2.SignedAngle(Vector2.up, d) + 180,
-                end = p
-            });
-        };
+        int h = hits.Length;    // hit object count
+        int rc = 4 * h;         // 4 rays per hit
+        int vc = rc + 1;        // 1 vert per ray, +1 for centre
+        int t = rc;
 
+        var edgeRays = new LightRay[rc];
+        var verts = new Vector3[vc];
+        verts[0] = lsPos;
+        var indices = new int[3 * t];
+
+        int ri = 0;
         for (int i = 0; i < hits.Length; i++)
         {
             var collider = hits[i].collider as PolygonCollider2D;
@@ -90,41 +92,48 @@ public class LightEngine : MonoBehaviour
             var dRightInner = rotLeft * dRight;
             var dRightOuter = rotRight * dRight;
 
+            var outerL = source.Raycast(dLeftOuter, Color.blue);
+            var outerR = source.Raycast(dRightOuter, Color.red);
             var innerL = source.Raycast(dLeftInner, Color.cyan);
             var innerR = source.Raycast(dRightInner, Color.magenta);
 
-            addRay(dLeftInner, innerL);
-            addRay(dRightInner, innerR);
+            edgeRays[ri] = innerL;
+            edgeRays[ri + 1] = innerR;
+            edgeRays[ri + 2] = outerL;
+            edgeRays[ri + 3] = outerR;
 
-            var outerL = source.Raycast(dLeftOuter, Color.blue);
-            var outerR = source.Raycast(dRightOuter, Color.red);
-
-            addRay(dLeftOuter, outerL);
-            addRay(dRightOuter, outerR);
+            ri += 4;
         }
 
         // TODO: expunge linq
-        rays = rays.OrderBy(r => r.angle).ToList();
+        edgeRays = edgeRays.OrderBy(r => r.angle).ToArray();
 
-        foreach (var r in rays)
+        for (int i = 0; i < edgeRays.Length; i++)
         {
-            verts.Add(r.end);
+            verts[i + 1] = edgeRays[i].end;
         }
 
-        var indices = new List<int>();
-
-        // i = 0 is mesh centre
-        // get vert[i] and vert[i-1] to construct tris
-        for (int i = 2; i < verts.Count; i++)
+        // verts[0] is mesh centre
+        for (int i = 0; i < t; i++)
         {
-            indices.Add(i - 1);
-            indices.Add(i);
-            indices.Add(0);
+            int ti = 3 * i;
+
+            indices[ti] = 0;
+            indices[ti + 1] = i + 1;
+            indices[ti + 2] = i + 2;
         }
+
+
+        //for (int i = 2; i < verts.Count; i++)
+        //{
+        //    indices.Add(i - 1);
+        //    indices.Add(i);
+        //    indices.Add(0);
+        //}
         // join last tri
-        indices.Add(verts.Count - 1);
-        indices.Add(1);
-        indices.Add(0);
+        //indices.Add(verts.Count - 1);
+        //indices.Add(1);
+        //indices.Add(0);
 
         var mesh = _sources[source];
         mesh.Clear();
