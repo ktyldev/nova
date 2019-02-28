@@ -6,15 +6,18 @@ public class LightSource : MonoBehaviour
 {
     public float range;
 
+    public Vector2 Position => transform.position;
+
+    private int _mask;
+
+    private void Awake()
+    {
+        _mask = LayerMask.GetMask(GameConstants.Asteroid);
+    }
+
     void Start()
     {
         LightEngine.Register(this);
-    }
-
-    private void DrawSide(Vector2 p1, Vector2 p2)
-    {
-        var colour = GetAngle(p1, p2) < 0 ? Color.green : Color.gray;
-        Debug.DrawLine(p1, p2, colour);
     }
 
     private float GetAngle(Vector2 p1, Vector2 p2)
@@ -22,18 +25,15 @@ public class LightSource : MonoBehaviour
         return Vector2.SignedAngle(p1, p2);
     }
 
-    public LightRay Raycast(Vector2 dir, Color colour)
+    public LightRay Raycast(Vector2 dir)
     {
         dir.Normalize();
-        var mask = LayerMask.GetMask("Asteroid");
 
-        var raycastHit = Physics2D.Raycast(transform.position, dir, range, mask);
+        var raycastHit = Physics2D.Raycast(transform.position, dir, range, _mask);
         bool hit = raycastHit.collider != null;
 
         var v = hit ? dir * raycastHit.distance : dir * range;
         var end = (Vector2)transform.position + v;
-
-        Debug.DrawLine(transform.position, end, colour);
 
         return new LightRay
         {
@@ -41,9 +41,16 @@ public class LightSource : MonoBehaviour
             end = end,
             hit = hit
         };
-
     }
 
+    public LightRay Raycast(Vector2 dir, Color colour)
+    {
+        var ray = Raycast(dir);
+        Debug.DrawLine(transform.position, ray.end, colour);
+        return ray;
+    }
+
+    // TODO: possibly reduces the number of points to sample from the collider?
     public HitObject FindEdges(PolygonCollider2D collider)
     {
         var toCentre = collider.transform.position - transform.position;

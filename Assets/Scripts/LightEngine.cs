@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class LightEngine : MonoBehaviour
 {
     public Transform meshParent;
     public Material lightMat;
+    // TODO
     // how many vertices make up the circle around the edge of light sources
-    public int circlePoints = 50;
+    //public int circlePoints = 50;
 
     public static LightEngine Instance { get; private set; }
 
     private int _mask;
+    private IComparer<LightRay> _comparer;
 
     private Dictionary<LightSource, Mesh> _sources
         = new Dictionary<LightSource, Mesh>();
@@ -42,7 +43,8 @@ public class LightEngine : MonoBehaviour
             throw new System.Exception();
 
         Instance = this;
-        _mask = LayerMask.GetMask("Asteroid");
+        _mask = LayerMask.GetMask(GameConstants.Asteroid);
+        _comparer = new LightRayAngleComparer();
     }
 
     private void FixedUpdate()
@@ -55,24 +57,31 @@ public class LightEngine : MonoBehaviour
 
     private void UpdateMesh(LightSource source)
     {
-        var lsPos = (Vector2)source.transform.position;
+        var mesh = _sources[source];
+        mesh.Clear();
 
+        var sourcePos = (Vector2)source.transform.position;
         var hits = Physics2D.CircleCastAll(
-            lsPos,
+            sourcePos,
             source.range,
             Vector2.zero,
             source.range,
             _mask);
 
-        int h = hits.Length;    // hit object count
-        int rc = 4 * h;         // 4 rays per hit
-        int vc = rc + 1;        // 1 vert per ray, +1 for centre
-        int t = rc;
+        if (hits.Length == 0)
+            return;
 
-        var edgeRays = new LightRay[rc];
-        var verts = new Vector3[vc];
-        verts[0] = lsPos;
-        var indices = new int[3 * t];
+        // pre-calc some values
+        int rayCount = 4 * hits.Length;         // 4 rays per hit
+        int vertCount = rayCount + 1; // 1 vert per ray, +1 for centre
+
+        // pre-allocate arrays
+        var rays = new LightRay[rayCount];
+        var verts = new Vector3[vertCount];
+        var uv = new Vector2[verts.Length];
+        var indices = new int[3 * rayCount];
+
+        verts[0] = sourcePos;
 
         int ri = 0;
         for (int i = 0; i < hits.Length; i++)
@@ -84,37 +93,37 @@ public class LightEngine : MonoBehaviour
             var rotLeft = Quaternion.Euler(0, 0, m);
             var rotRight = Quaternion.Euler(0, 0, -m);
 
-            var dLeft = edges.left.worldPosition - lsPos;
+            var dLeft = edges.left.worldPosition - sourcePos;
             var dLeftInner = rotRight * dLeft;
             var dLeftOuter = rotLeft * dLeft;
 
-            var dRight = edges.right.worldPosition - lsPos;
+            var dRight = edges.right.worldPosition - sourcePos;
             var dRightInner = rotLeft * dRight;
             var dRightOuter = rotRight * dRight;
 
-            var outerL = source.Raycast(dLeftOuter, Color.blue);
-            var outerR = source.Raycast(dRightOuter, Color.red);
-            var innerL = source.Raycast(dLeftInner, Color.cyan);
-            var innerR = source.Raycast(dRightInner, Color.magenta);
+            // TODO: remove inner casts, we already have the geometry
+            var outerL = source.Raycast(dLeftOuter);
+            var outerR = source.Raycast(dRightOuter);
+            var innerL = source.Raycast(dLeftInner);
+            var innerR = source.Raycast(dRightInner);
 
-            edgeRays[ri] = innerL;
-            edgeRays[ri + 1] = innerR;
-            edgeRays[ri + 2] = outerL;
-            edgeRays[ri + 3] = outerR;
+            rays[ri] = innerL;
+            rays[ri + 1] = innerR;
+            rays[ri + 2] = outerL;
+            rays[ri + 3] = outerR;
 
             ri += 4;
         }
 
-        // TODO: expunge linq
-        edgeRays = edgeRays.OrderBy(r => r.angle).ToArray();
+        System.Array.Sort(rays, _comparer);
 
-        for (int i = 0; i < edgeRays.Length; i++)
+        for (int i = 0; i < rays.Length; i++)
         {
-            verts[i + 1] = edgeRays[i].end;
+            verts[i + 1] = rays[i].end;
         }
 
         // verts[0] is mesh centre
-        for (int i = 0; i < t; i++)
+        for (int i = 0; i < rayCount - 1; i++)
         {
             int ti = 3 * i;
 
@@ -122,36 +131,31 @@ public class LightEngine : MonoBehaviour
             indices[ti + 1] = i + 1;
             indices[ti + 2] = i + 2;
         }
+        var li = indices.Length;
+        indices[li - 3] = 0;
+        indices[li - 2] = vertCount - 1;
+        indices[li - 1] = 1;
 
-
-        //for (int i = 2; i < verts.Count; i++)
-        //{
-        //    indices.Add(i - 1);
-        //    indices.Add(i);
-        //    indices.Add(0);
-        //}
-        // join last tri
-        //indices.Add(verts.Count - 1);
-        //indices.Add(1);
-        //indices.Add(0);
-
-        var mesh = _sources[source];
-        mesh.Clear();
-
-        mesh.vertices = verts.ToArray();
-        mesh.triangles = indices.ToArray();
+        mesh.vertices = verts;
+        mesh.triangles = indices;
 
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
-        var bounds = new Bounds(Vector3.zero, new Vector3(source.range, source.range));
-        var uv = new List<Vector2>();
-        foreach (var v in verts)
+        var size = source.range * 2;
+        for (int i = 0; i < verts.Length; i++)
         {
-            var tv = (Vector2)v - lsPos;
+            var tv = (Vector2)verts[i] - sourcePos;
 
-            uv.Add(new Vector2(tv.x / bounds.size.x, tv.y / bounds.size.y));
+            uv[i].x = tv.x / size;
+            uv[i].y = tv.y / size;
         }
-        mesh.uv = uv.ToArray();
+        mesh.uv = uv;
     }
 }
+
+public class LightRayAngleComparer : IComparer<LightRay>
+{
+    public int Compare(LightRay x, LightRay y) => x.angle.CompareTo(y.angle);
+}
+

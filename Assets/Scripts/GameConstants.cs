@@ -11,4 +11,7 @@ public class GameConstants
 
     // Tags
     public const string Network = "Network";
+
+    // Layers
+    public const string Asteroid = "Asteroid";
 }
