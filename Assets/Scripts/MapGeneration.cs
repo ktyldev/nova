@@ -57,7 +57,6 @@ public class MapGeneration : NetworkBehaviour
             float x3 = Random.Range(mapBounds.min.x, mapBounds.max.x);
             float y3 = Random.Range(mapBounds.min.y, mapBounds.max.y);
             float xs = Random.Range(sizeBounds.min.x, sizeBounds.max.x);
-            float ys = Random.Range(sizeBounds.min.y, sizeBounds.max.y);
 
             var pos  = new Vector3(x, y, 0);
             var pos1 = new Vector3(x1, y1, 0);
@@ -95,5 +94,4 @@ public class MapGeneration : NetworkBehaviour
             newAsteroid3.transform.localScale += new Vector3(xs, xs, 0);
         }
     }
-
 }

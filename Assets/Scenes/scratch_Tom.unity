@@ -666,8 +666,8 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 100, y: 100, z: 100}
   sizeBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1.5, y: 1.5, z: 1.5}
+    m_Center: {x: 0.5, y: 0.5, z: 0.5}
+    m_Extent: {x: 0.5, y: 0.5, z: 0.5}
   minSeperation: 5
 --- !u!114 &746237757
 MonoBehaviour:
@@ -812,7 +812,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ead16210565dfb649a2488b02b205122,
+      objectReference: {fileID: 21300000, guid: 2daea74b29590ce4db3202e8a5e19b89,
         type: 3}
     m_RemovedComponents:
     - {fileID: 7194304064282202659, guid: 68d5b22b1326fb145b5011c3d8f5ffb3, type: 3}
@@ -1248,7 +1248,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 14dd0a8618a10fe4d895df80800c849c,
+      objectReference: {fileID: 21300000, guid: 45a16baf08115e44ebded5206d578d68,
         type: 3}
     m_RemovedComponents:
     - {fileID: 7194304064282202659, guid: 68d5b22b1326fb145b5011c3d8f5ffb3, type: 3}
