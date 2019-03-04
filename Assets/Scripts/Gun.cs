@@ -8,7 +8,6 @@ public class Gun : MonoBehaviour
     public Transform emitter;
     public GameObject bulletPrefab;
     public float speed = 20f;
-    public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +25,8 @@ public class Gun : MonoBehaviour
     //spawning the bullets
     public void Fire()
     {
-        Instantiate(bulletPrefab, emitter.position, emitter.rotation);
-        rb.velocity = transform.right * speed;
-        Debug.Log("it fired");
-    }
-
-    //when bullet hits, gets destroyed
-    void OnTriggerEnter2D()
-    {
-        Destroy(gameObject);
+        var bullet = Instantiate(bulletPrefab, emitter.position, emitter.rotation);
+        var rb = bullet.GetComponent<Rigidbody2D>();
+        rb.velocity = transform.up * speed;
     }
 }
