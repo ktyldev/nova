@@ -15,11 +15,6 @@ public class Game : MonoBehaviour
     public static Game Instance { get; private set; }
 
     public GameObject explosion;
-    public GameObject asteroid;
-    public GameObject asteroid1;
-    public GameObject asteroid2;
-    public GameObject asteroid3;
-
 
     private void Awake()
     {
