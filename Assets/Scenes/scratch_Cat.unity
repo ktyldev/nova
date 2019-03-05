@@ -355,12 +355,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 406849432}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &406849434 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6198068389113302788, guid: 68d5b22b1326fb145b5011c3d8f5ffb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 406849432}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &466115128
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 1
   explosion: {fileID: 1222983843}
-  asteroid: {fileID: 406849434}
+  bulletParent: {fileID: 0}
 --- !u!114 &485773754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,11 +480,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202b6b0c23042104b9dd1e3c4a648cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidsParent: {fileID: 466115129}
+  asteroids:
+    template: {fileID: 6198068389113302788, guid: 68d5b22b1326fb145b5011c3d8f5ffb3,
+      type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 7ccf96982c7ceaf44964548fe42780a3, type: 3}
+    - {fileID: 21300000, guid: 2daea74b29590ce4db3202e8a5e19b89, type: 3}
+    - {fileID: 21300000, guid: 45a16baf08115e44ebded5206d578d68, type: 3}
+    parent: {fileID: 466115129}
   maxToGenerate: 100
   mapBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 100, y: 100, z: 100}
+  minScale: 0.5
+  maxScale: 2.5
   minSeperation: 5
 --- !u!114 &485773756
 MonoBehaviour:
