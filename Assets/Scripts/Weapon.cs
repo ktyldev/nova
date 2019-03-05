@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
     private IInputProvider _input;
     private bool _isFiring;
     private bool _laserActive;
-    private bool _gunActive;
+    private bool _gunActive = true;
 
     private Gun _gun;
 
@@ -54,7 +54,6 @@ public class Weapon : MonoBehaviour
             {
                 StartCoroutine(FireBullet());
             }
-            
         }
     }
 
@@ -123,26 +122,9 @@ public class Weapon : MonoBehaviour
 
             elapsed -= fireInterval;
 
-
             _isFiring = false;
             _targeting.SetActive(true);
             yield break;
         }
-
-
-    }
-
-    private IEnumerator BulletDamage()
-    {
-        while (_gun.bulletHit == true)
-        {
-            var health = _laser.Occluder?.GetComponent<Health>();
-            if (health == null)
-                continue;
-
-            health.TakeDamage(bulletDamage);
-             _gun.bulletHit = false;
-        }   
-        yield break;
     }
 }

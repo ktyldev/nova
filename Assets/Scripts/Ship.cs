@@ -18,6 +18,15 @@ public class Ship : NetworkBehaviour
         cam.target = transform;
     }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+
+        string netId = GetComponent<NetworkIdentity>().netId.ToString();
+
+        Game.Instance.RegisterPlayer(netId, this);
+    }
+
     // TODO: play explosion sound
     public void Die()
     {
