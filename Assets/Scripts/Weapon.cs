@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
 {
     public Transform muzzle;
     public float damagePerSecond;
+    public float bulletDamage;
 
     [Header("Lasers")]
     public GameObject weaponLaser;
@@ -15,6 +16,8 @@ public class Weapon : MonoBehaviour
 
     private IInputProvider _input;
     private bool _isFiring;
+    private bool _laserActive;
+    private bool _gunActive;
 
     private Gun _gun;
 
@@ -41,8 +44,17 @@ public class Weapon : MonoBehaviour
         if (!_isFiring && _input.IsFiring)
         {
             _isFiring = true;
-            //StartCoroutine(FireLaser());
-            StartCoroutine(FireBullet());
+
+            if(_laserActive == true)
+            {
+                StartCoroutine(FireLaser());
+            }
+
+            if (_gunActive == true)
+            {
+                StartCoroutine(FireBullet());
+            }
+            
         }
     }
 
@@ -107,7 +119,6 @@ public class Weapon : MonoBehaviour
             if (elapsed < fireInterval)
             {
                 _gun.Fire();
-                Debug.Log("bullet");
             }
 
             elapsed -= fireInterval;
@@ -123,9 +134,15 @@ public class Weapon : MonoBehaviour
 
     private IEnumerator BulletDamage()
     {
+        while (_gun.bulletHit == true)
+        {
+            var health = _laser.Occluder?.GetComponent<Health>();
+            if (health == null)
+                continue;
 
-
-
+            health.TakeDamage(bulletDamage);
+             _gun.bulletHit = false;
+        }   
         yield break;
     }
 }

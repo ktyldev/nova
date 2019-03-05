@@ -452,10 +452,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroidsParent: {fileID: 1859295283}
+  asteroidsParent1: {fileID: 0}
+  asteroidsParent2: {fileID: 0}
+  asteroidsParent3: {fileID: 0}
   maxToGenerate: 100
   mapBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 100, y: 100, z: 100}
+  sizeBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   minSeperation: 5
 --- !u!114 &1205060804
 MonoBehaviour:
@@ -469,9 +475,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aac3d2fa33b09d40bd670256ec554cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
+  mode: 2
   explosion: {fileID: 2021118706}
   asteroid: {fileID: 1252659841}
+  asteroid1: {fileID: 0}
+  asteroid2: {fileID: 0}
+  asteroid3: {fileID: 0}
 --- !u!4 &1205060805
 Transform:
   m_ObjectHideFlags: 0

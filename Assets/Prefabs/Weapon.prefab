@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1352703372087346270}
   damagePerSecond: 1
+  bulletDamage: 5
   weaponLaser: {fileID: 7099160491220438824}
   targeting: {fileID: 2023342590597632009}
   weaponGun: {fileID: 8998100916790248183}
@@ -499,4 +500,4 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1949231094303805714, guid: 7c3f9642d89995b4781a558a66da3f03,
     type: 3}
   speed: 300
-  rb: {fileID: 0}
+  bulletHit: 0

@@ -9,4 +9,8 @@ public class EnemyInput : MonoBehaviour, IInputProvider
     public Vector2 TargetPosition => Vector2.zero;
 
     public bool IsFiring => false;
+
+    public bool laserActive => false;
+
+    public bool gunActive => false;
 }

@@ -12,6 +12,8 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
 
     //[SyncVar]
     private bool _isFiring;
+    private bool _laserActive;
+    private bool _gunActive;
 
     /// <summary>
     /// Get a vector representing the current values of the movement input.
@@ -68,6 +70,8 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
     /// </summary>
     /// <returns></returns>
     public bool IsFiring => _isFiring;
+    public bool laserActive => _laserActive;
+    public bool gunActive => _gunActive;
 
     private void Update()
     {
@@ -78,6 +82,18 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
         if (isFiring != _isFiring)
         {
             CmdIsFiring(isFiring);
+        }
+
+        var weaponSelect = Input.GetAxis("Mouse ScrollWheel");
+        if (weaponSelect > 0f)
+        {
+            _laserActive = true;
+            _gunActive = false;
+        }
+        else if (weaponSelect < 0f)
+        {
+            _gunActive = true;
+            _laserActive = false;
         }
     }
 

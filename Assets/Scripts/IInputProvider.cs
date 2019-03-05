@@ -15,4 +15,8 @@ public interface IInputProvider
     /// Weapons hot
     /// </summary>
     bool IsFiring { get; }
+
+    bool laserActive { get; }
+
+    bool gunActive { get; }
 }
