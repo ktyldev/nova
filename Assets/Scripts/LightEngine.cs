@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class LightEngine : MonoBehaviour
 {
-    public Transform meshParent;
+    public Transform illumination;
+    public Transform shadows;
+
     public Material lightMat;
+    public Material shadowMat;
     // TODO
     // how many vertices make up the circle around the edge of light sources
     //public int circlePoints = 50;
@@ -14,7 +17,10 @@ public class LightEngine : MonoBehaviour
     private int _mask;
     private IComparer<LightRay> _comparer;
 
-    private Dictionary<LightSource, Mesh> _sources
+    // areas illuminated by particular light sources
+    private Dictionary<LightSource, Mesh> _illuminationMeshes
+        = new Dictionary<LightSource, Mesh>();
+    private Dictionary<LightSource, Mesh> _shadows
         = new Dictionary<LightSource, Mesh>();
 
     public static void Register(LightSource source)
@@ -24,17 +30,34 @@ public class LightEngine : MonoBehaviour
 
     protected void RegisterSource(LightSource source)
     {
-        var go = new GameObject();
-        go.transform.SetParent(meshParent);
+        GameObject go;
+        MeshFilter filter;
+        MeshRenderer renderer;
+
+        go = new GameObject();
+        go.transform.SetParent(illumination);
         go.transform.localPosition = Vector3.zero;
 
-        var f = go.AddComponent<MeshFilter>();
-        f.mesh = new Mesh();
+        filter = go.AddComponent<MeshFilter>();
+        filter.mesh = new Mesh();
 
-        var r = go.AddComponent<MeshRenderer>();
-        r.materials = new[] { lightMat };
+        renderer = go.AddComponent<MeshRenderer>();
+        renderer.materials = new[] { lightMat };
 
-        _sources.Add(source, f.mesh);
+        _illuminationMeshes.Add(source, filter.mesh);
+
+        // reassign the things
+        go = new GameObject();
+        go.transform.SetParent(shadows);
+        go.transform.localPosition = Vector3.zero;
+
+        filter = go.AddComponent<MeshFilter>();
+        filter.mesh = new Mesh();
+
+        renderer = go.AddComponent<MeshRenderer>();
+        renderer.materials = new[] { shadowMat };
+
+        _shadows.Add(source, filter.mesh);
     }
 
     void Start()
@@ -49,39 +72,33 @@ public class LightEngine : MonoBehaviour
 
     private void FixedUpdate()
     {
-        foreach (var s in _sources)
+        foreach (var s in _illuminationMeshes)
         {
-            UpdateMesh(s.Key);
+            DrawIlluminationMesh(s.Key);
+
+            if (s.Key.drawShadows)
+            {
+                DrawShadowMesh(s.Key);
+            }
         }
     }
 
-    private void UpdateMesh(LightSource source)
+    private void DrawIlluminationMesh(LightSource source)
     {
-        var mesh = _sources[source];
-        mesh.Clear();
-
-        var sourcePos = (Vector2)source.transform.position;
-        var hits = Physics2D.CircleCastAll(
-            sourcePos,
-            source.range,
-            Vector2.zero,
-            source.range,
-            _mask);
-
+        RaycastHit2D[] hits = null;
+        source.GetHits(ref hits, _mask);
         if (hits.Length == 0)
             return;
 
         // pre-calc some values
         int rayCount = 4 * hits.Length;         // 4 rays per hit
-        int vertCount = rayCount + 1; // 1 vert per ray, +1 for centre
-
-        // pre-allocate arrays
+        int vertCount = rayCount + 1;           // 1 vert per ray, +1 for centre
         var rays = new LightRay[rayCount];
         var verts = new Vector3[vertCount];
         var uv = new Vector2[verts.Length];
         var indices = new int[3 * rayCount];
 
-        verts[0] = sourcePos;
+        verts[0] = source.transform.position;
 
         int ri = 0;
         for (int i = 0; i < hits.Length; i++)
@@ -93,11 +110,11 @@ public class LightEngine : MonoBehaviour
             var rotLeft = Quaternion.Euler(0, 0, m);
             var rotRight = Quaternion.Euler(0, 0, -m);
 
-            var dLeft = edges.left.worldPosition - sourcePos;
+            var dLeft = edges.left.worldPosition - source.Position;
             var dLeftInner = rotRight * dLeft;
             var dLeftOuter = rotLeft * dLeft;
 
-            var dRight = edges.right.worldPosition - sourcePos;
+            var dRight = edges.right.worldPosition - source.Position;
             var dRightInner = rotLeft * dRight;
             var dRightOuter = rotRight * dRight;
 
@@ -136,21 +153,33 @@ public class LightEngine : MonoBehaviour
         indices[li - 2] = vertCount - 1;
         indices[li - 1] = 1;
 
+        var mesh = _illuminationMeshes[source];
+        mesh.Clear();
         mesh.vertices = verts;
         mesh.triangles = indices;
-
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
-
         var size = source.range * 2;
         for (int i = 0; i < verts.Length; i++)
         {
-            var tv = (Vector2)verts[i] - sourcePos;
+            var tv = (Vector2)verts[i] - source.Position;
 
             uv[i].x = tv.x / size;
             uv[i].y = tv.y / size;
         }
         mesh.uv = uv;
+    }
+
+    private void DrawShadowMesh(LightSource source)
+    {
+
+    }
+
+    private void DrawShadow(LightSource light, Mesh shadow, PolygonCollider2D obj)
+    {
+        // find edges
+        // cast rays past it
+        // make two tris
     }
 }
 

@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LightSource : MonoBehaviour
 {
     public float range;
+    public bool drawShadows;
 
     public Vector2 Position => transform.position;
 
@@ -39,7 +38,7 @@ public class LightSource : MonoBehaviour
         {
             angle = Vector2.SignedAngle(Vector2.up, dir) + 180,
             end = end,
-            hit = hit
+            hit = raycastHit.collider?.gameObject
         };
     }
 
@@ -84,13 +83,16 @@ public class LightSource : MonoBehaviour
 
         return o;
     }
+
+    public void GetHits(ref RaycastHit2D[] dest, int mask = -1) =>
+        dest = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, mask);
 }
 
 public struct LightRay
 {
     public float angle;
     public Vector2 end;
-    public bool hit;
+    public GameObject hit;
 }
 
 public struct HitObject
