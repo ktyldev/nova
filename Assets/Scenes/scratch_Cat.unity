@@ -684,7 +684,8 @@ MonoBehaviour:
   illumination: {fileID: 764712900}
   shadows: {fileID: 1503781469}
   lightMat: {fileID: 2100000, guid: 8c998ffe0a7a6ac428f7b2f28209d1d1, type: 2}
-  shadowMat: {fileID: 0}
+  shadowMat: {fileID: 2100000, guid: b0444ec0f5be3164ca73cb68717b7caf, type: 2}
+  edgeMiss: 0.02
 --- !u!1 &1093672042
 GameObject:
   m_ObjectHideFlags: 0

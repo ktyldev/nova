@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 50
+  drawIlluminations: 1
   drawShadows: 1
 --- !u!23 &5491502904670694217
 MeshRenderer:

@@ -3,6 +3,7 @@
 public class LightSource : MonoBehaviour
 {
     public float range;
+    public bool drawIlluminations;
     public bool drawShadows;
 
     public Vector2 Position => transform.position;
@@ -52,6 +53,11 @@ public class LightSource : MonoBehaviour
     // TODO: possibly reduces the number of points to sample from the collider?
     public HitObject FindEdges(PolygonCollider2D collider)
     {
+        if (collider == null)
+        {
+            throw new System.Exception();
+        }
+
         var toCentre = collider.transform.position - transform.position;
         var colliderPos = (Vector2)collider.transform.position;
 
@@ -84,8 +90,59 @@ public class LightSource : MonoBehaviour
         return o;
     }
 
-    public void GetHits(ref RaycastHit2D[] dest, int mask = -1) =>
-        dest = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, mask);
+    /// <summary>
+    /// get four rays for the collider - one hitting each edge and one going either side
+    /// </summary>
+    /// <param name="collider"></param>
+    public void GetRays(ref LightRay[] dest, int startIndex, PolygonCollider2D collider)
+    {
+        if (startIndex + 3 >= dest.Length || startIndex < 0)
+            throw new System.Exception();
+
+        var edges = FindEdges(collider);
+        var m = LightEngine.Instance.edgeMiss;
+
+        // rotations
+        var rotL = Quaternion.Euler(0, 0, m);
+        var rotR = Quaternion.Euler(0, 0, -m);
+
+        // directions
+        var dirL = edges.left.worldPosition - Position;
+        var dirR = edges.right.worldPosition - Position;
+
+        dest[startIndex] = Raycast(rotL * dirL);
+        dest[startIndex + 1] = Raycast(rotR * dirR);
+        dest[startIndex + 2] = Raycast(rotR * dirL);
+        dest[startIndex + 3] = Raycast(rotL * dirR);
+    }
+
+    public void GetShadowPositions(ref Vector3[] dest, int startIndex, PolygonCollider2D collider)
+    {
+        if (startIndex + 3 >= dest.Length || startIndex < 0)
+            throw new System.Exception();
+
+        var edges = FindEdges(collider);
+        var m = LightEngine.Instance.edgeMiss;
+
+        // rotations
+        var rotL = Quaternion.Euler(0, 0, m);
+        var rotR = Quaternion.Euler(0, 0, -m);
+
+        // directions
+        var dirL = edges.left.worldPosition - Position;
+        var dirR = edges.right.worldPosition - Position;
+
+        // outer
+        dest[startIndex] = Position + (Vector2)(rotL * dirL).normalized * range;
+        dest[startIndex + 1] = Position + (Vector2)(rotR * dirR).normalized * range;
+
+        // inner
+        dest[startIndex + 2] = Position + (Vector2)(rotR * dirL);
+        dest[startIndex + 3] = Position + (Vector2)(rotL * dirR);
+    }
+
+    public void GetHits(ref RaycastHit2D[] dest) =>
+        dest = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0, _mask);
 }
 
 public struct LightRay
