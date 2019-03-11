@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
     private IInputProvider _input;
     private bool _isFiring;
     private bool _laserActive;
-    private bool _gunActive = true;
+    private bool _gunActive;
 
     private Gun _gun;
 

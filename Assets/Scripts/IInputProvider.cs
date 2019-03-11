@@ -16,7 +16,7 @@ public interface IInputProvider
     /// </summary>
     bool IsFiring { get; }
 
-    bool laserActive { get; }
+    bool LaserActive { get; }
 
-    bool gunActive { get; }
+    bool GunActive { get; }
 }
