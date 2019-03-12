@@ -1,78 +1,28 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public Transform muzzle;
-    public float damagePerSecond;
-    public float bulletDamage;
-
-    public GameObject weaponGun;
-    [Header("Lasers")]
-    public GameObject targeting;
+    public GameObject targetingLaser;
+    public GameObject[] weapons;
 
     private IInputProvider _input;
-    private bool _isFiring;
-    private bool _laserActive = true;
-    private bool _gunActive;
-
-    private Gun _gun;
     private Laser _targeting;
-    private Ship _ship;
-
-    private Weapon _laserWeapon;
+    private Weapon[] _weapons;
+    private int _activeWeapon = 0;
 
     private void Start()
     {
-        _ship = GetComponentInParent<Ship>();
-        _input = _ship.InputProvider;
-
-        _targeting = targeting.GetComponent<Laser>();
-
-        _gun = weaponGun.GetComponent<Gun>();
-
-        _laserWeapon = GetComponentInChildren<Weapon>();
+        _input = GetComponentInParent<Ship>().InputProvider;
+        _targeting = targetingLaser.GetComponent<Laser>();
+        _weapons = weapons.Select(w => w.GetComponent<Weapon>()).ToArray();
     }
 
     void Update()
     {
-        //if (!_ship.isLocalPlayer)
-        //    return;
-
         if (_input.IsFiring)
         {
-            if(_laserActive == true)
-            {
-                _laserWeapon.Fire(_input);
-            }
-
-            if (_gunActive == true)
-            {
-                StartCoroutine(FireBullet());
-            }
-        }
-    }
-
-    private IEnumerator FireBullet()
-    {
-        _targeting.SetActive(false);
-        float elapsed = 0;
-        float fireInterval = 0.3f;
-
-        while(_input.IsFiring){
-            elapsed += Time.deltaTime;
-            if (elapsed < fireInterval)
-            {
-                _gun.Fire();
-            }
-
-            elapsed -= fireInterval;
-
-            _isFiring = false;
-            _targeting.SetActive(true);
-            yield break;
+            _weapons[_activeWeapon].Fire(_input);
         }
     }
 }

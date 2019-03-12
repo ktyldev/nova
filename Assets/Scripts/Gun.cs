@@ -1,31 +1,41 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : Weapon
 {
     public Transform emitter;
-    public GameObject bulletPrefab;
+    public GameObject bullet;
 
+    [Tooltip("rounds per second")]
+    public float fireRate = 2.5f;
+
+    private float _fireInterval;
     // TODO: cheap hack lol
     private Ship _ship;
+
+    private void Awake()
+    {
+        _fireInterval = 1f / fireRate;
+    }
 
     private void Start()
     {
         _ship = GetComponentInParent<Ship>();
-        if (_ship == null)
-            throw new System.Exception();
     }
 
-    //spawning the bullets
-    public void Fire()
+    protected override IEnumerator DoFire(Func<bool> getFiring)
     {
-        var bullet = Instantiate(
-            bulletPrefab, 
-            emitter.position, 
-            emitter.rotation)
-            .GetComponent<Bullet>();
+        while (getFiring())
+        {
+            yield return new WaitForSeconds(_fireInterval);
 
-        // cheap hack lol
-        bullet.ignore = _ship;
+            var b = Instantiate(bullet, emitter.position, emitter.rotation)
+                .GetComponent<Bullet>();
+            // cheap hack lol
+            b.ignore = _ship;
+            b.transform.SetParent(Game.Instance.bulletParent);
+        }
     }
 }

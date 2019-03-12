@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 162799698}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Bullets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,7 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 1
   explosion: {fileID: 1222983843}
-  bulletParent: {fileID: 0}
+  bulletParent: {fileID: 162799698}
 --- !u!4 &1903553093
 Transform:
   m_ObjectHideFlags: 0
