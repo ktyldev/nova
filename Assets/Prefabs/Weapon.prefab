@@ -317,6 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39681657457834480}
   - component: {fileID: 1212657601823974228}
+  - component: {fileID: 2266950804705986617}
   - component: {fileID: 5596749154558457214}
   m_Layer: 0
   m_Name: WeaponLaser
@@ -434,6 +435,21 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &2266950804705986617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099160491220438824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3858fb20464fe0488d22cbadd064b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  damageFrequency: 5
+  laser: {fileID: 7099160491220438824}
 --- !u!114 &5596749154558457214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,9 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26659676f79f5a44ea27541bcbb8299e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 100
   emitter: {fileID: 1352703372087346270}
   bulletPrefab: {fileID: 1949231094303805714, guid: 7c3f9642d89995b4781a558a66da3f03,
     type: 3}
-  speed: 300
-  bulletHit: 0
