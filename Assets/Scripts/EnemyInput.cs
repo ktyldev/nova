@@ -10,7 +10,7 @@ public class EnemyInput : MonoBehaviour, IInputProvider
 
     public bool IsFiring => false;
 
-    public bool laserActive => false;
+    public bool LaserActive => false;
 
-    public bool gunActive => false;
+    public bool GunActive => false;
 }

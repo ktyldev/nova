@@ -9,11 +9,18 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
         Relative
     }
     public MovementType movementType;
+    public bool switchingWeapon;
+    public int currentWeapon;
 
     //[SyncVar]
     private bool _isFiring;
     private bool _laserActive;
     private bool _gunActive;
+
+    void Start()
+    {
+        switchingWeapon = true;
+    }
 
     /// <summary>
     /// Get a vector representing the current values of the movement input.
@@ -70,8 +77,8 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
     /// </summary>
     /// <returns></returns>
     public bool IsFiring => _isFiring;
-    public bool laserActive => _laserActive;
-    public bool gunActive => _gunActive;
+    public bool LaserActive => _laserActive;
+    public bool GunActive => _gunActive;
 
     private void Update()
     {
@@ -87,13 +94,30 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
         var weaponSelect = Input.GetAxis("Mouse ScrollWheel");
         if (weaponSelect > 0f)
         {
-            _laserActive = true;
-            _gunActive = false;
+            currentWeapon = currentWeapon + 1;
+            switchingWeapon = true;
         }
         else if (weaponSelect < 0f)
         {
-            _gunActive = true;
-            _laserActive = false;
+            currentWeapon = currentWeapon - 1;
+            switchingWeapon = true;
+        }
+
+        if(switchingWeapon == true)
+        {
+            switch (currentWeapon)
+            {
+                case 1:
+                    _gunActive = true;
+                    _laserActive = false;
+                    switchingWeapon = false;
+                    break;
+                case 2:
+                    _laserActive = true;
+                    _gunActive = false;
+                    switchingWeapon = false;
+                    break;
+            }
         }
     }
 
