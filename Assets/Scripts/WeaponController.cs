@@ -8,12 +8,15 @@ public class WeaponController : MonoBehaviour
 
     private IInputProvider _input;
     private Laser _targeting;
+    private Ship _ship;
     private Weapon[] _weapons;
     private int _activeWeapon = 0;
 
     private void Start()
     {
-        _input = GetComponentInParent<Ship>().InputProvider;
+        _ship = GetComponentInParent<Ship>();
+        _input = _ship.InputProvider;
+
         _targeting = targetingLaser.GetComponent<Laser>();
         _weapons = weapons.Select(w => w.GetComponent<Weapon>()).ToArray();
     }
