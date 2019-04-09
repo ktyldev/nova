@@ -143,6 +143,11 @@ public class LightSource : MonoBehaviour
 
     public void GetHits(ref RaycastHit2D[] dest) =>
         dest = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0, _mask);
+
+    private void OnDestroy()
+    {
+        LightEngine.Unregister(this);
+    }
 }
 
 public struct LightRay
