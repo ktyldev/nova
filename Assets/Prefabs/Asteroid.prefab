@@ -10,13 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6198068389113302787}
   - component: {fileID: 7194304064282202659}
-  - component: {fileID: 6198068389113302786}
   - component: {fileID: 6198068389113302785}
   - component: {fileID: 222316817865841576}
   - component: {fileID: 1134129740620738537}
   - component: {fileID: 3805340679238019939}
   - component: {fileID: 2309708023278467691}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,22 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
---- !u!58 &6198068389113302786
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6198068389113302788}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.2
 --- !u!50 &6198068389113302785
 Rigidbody2D:
   serializedVersion: 4
@@ -184,7 +167,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5, y: 2.5}
+  m_Size: {x: 4.69, y: 4.69}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
