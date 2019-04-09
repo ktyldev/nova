@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
+using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour, IInputProvider
 {
@@ -9,18 +9,6 @@ public class PlayerInput : MonoBehaviour, IInputProvider
         Relative
     }
     public MovementType movementType;
-    public bool switchingWeapon;
-    public int currentWeapon;
-
-    //[SyncVar]
-    private bool _isFiring;
-    private bool _laserActive;
-    private bool _gunActive;
-
-    void Start()
-    {
-        switchingWeapon = true;
-    }
 
     /// <summary>
     /// Get a vector representing the current values of the movement input.
@@ -76,45 +64,25 @@ public class PlayerInput : MonoBehaviour, IInputProvider
     /// Get whether the player is firing.
     /// </summary>
     /// <returns></returns>
-    public bool IsFiring => _isFiring;
-    public bool LaserActive => _laserActive;
-    public bool GunActive => _gunActive;
+    public bool IsFiring { get; private set; }
+
+    public UnityEvent ScrollUp { get; private set; } = new UnityEvent();
+    public UnityEvent ScrollDown { get; private set; } = new UnityEvent();
 
     private void Update()
     {
-        bool isFiring = Input.GetButton(GameConstants.Axis_Fire1);
-        if (isFiring != _isFiring)
-        {
-            _isFiring = isFiring;
-        }
+        IsFiring = Input.GetButton(GameConstants.Axis_Fire1);
 
-        var weaponSelect = Input.GetAxis("Mouse ScrollWheel");
-        if (weaponSelect > 0f)
+        var scroll = Input.GetAxis(GameConstants.Axis_Scroll);
+        if (scroll > 0f)
         {
-            currentWeapon = currentWeapon + 1;
-            switchingWeapon = true;
+            ScrollUp.Invoke();
         }
-        else if (weaponSelect < 0f)
+        else if (scroll < 0f)
         {
-            currentWeapon = currentWeapon - 1;
-            switchingWeapon = true;
-        }
-
-        if(switchingWeapon == true)
-        {
-            switch (currentWeapon)
-            {
-                case 1:
-                    _gunActive = true;
-                    _laserActive = false;
-                    switchingWeapon = false;
-                    break;
-                case 2:
-                    _laserActive = true;
-                    _gunActive = false;
-                    switchingWeapon = false;
-                    break;
-            }
+            ScrollDown.Invoke();
         }
     }
 }
+
+public class SwitchToWeaponEvent : UnityEvent<int> { }
