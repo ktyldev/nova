@@ -22,10 +22,14 @@ public class Laser : MonoBehaviour
     }
 
     private LineRenderer _line;
+    private IInputProvider _input;
 
     private void Awake()
     {
         _line = GetComponent<LineRenderer>();
+
+        var ship = GetComponentInParent<Ship>();
+        _input = ship.GetComponent<IInputProvider>();
     }
 
     private void Start()
@@ -33,7 +37,7 @@ public class Laser : MonoBehaviour
         SetActive(startActive);
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if (_line.positionCount == 0)
         {
@@ -72,7 +76,10 @@ public class Laser : MonoBehaviour
             }
         }
 
-        var end = start + emitter.up * l;
+        var dir = (Vector3)_input.TargetPosition - start;
+        dir.Normalize();
+
+        var end = start + dir * l;
         _line.SetPositions(new[] { start, end });
     }
 
