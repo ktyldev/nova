@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerInput : NetworkBehaviour, IInputProvider
+public class PlayerInput : MonoBehaviour, IInputProvider
 {
     public enum MovementType
     {
@@ -82,13 +82,10 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
 
     private void Update()
     {
-        if (!isLocalPlayer)
-            return;
-
         bool isFiring = Input.GetButton(GameConstants.Axis_Fire1);
         if (isFiring != _isFiring)
         {
-            CmdIsFiring(isFiring);
+            _isFiring = isFiring;
         }
 
         var weaponSelect = Input.GetAxis("Mouse ScrollWheel");
@@ -119,18 +116,5 @@ public class PlayerInput : NetworkBehaviour, IInputProvider
                     break;
             }
         }
-    }
-
-    [Command]
-    private void CmdIsFiring(bool val)
-    {
-        _isFiring = val;
-        RpcIsFiring(val);
-    }
-
-    [ClientRpc]
-    private void RpcIsFiring(bool val)
-    {
-        _isFiring = val;
     }
 }

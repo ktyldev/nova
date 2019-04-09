@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Asteroid : NetworkBehaviour
+public class Asteroid : MonoBehaviour
 {
     public Transform parent;
 

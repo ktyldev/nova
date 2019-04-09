@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MapGeneration : NetworkBehaviour
+public class MapGeneration : MonoBehaviour
 {
     [System.Serializable]
     public struct AsteroidsInfo
@@ -24,23 +24,13 @@ public class MapGeneration : NetworkBehaviour
 
     private void Start()
     {
-        // only spawn asteroids on the host
-        if (!isServer)
-            return;
-
-        _spawned = new List<GameObject>();
-        StartCoroutine(SpawnAsteroids());
-    }
-
-    private IEnumerator SpawnAsteroids()
-    {
-        yield return new WaitUntil(() => 
-            NetworkServer.connections.Count == Game.Instance.Players);
         GenerateAsteroids();
     }
 
     private void GenerateAsteroids()
     {
+        _spawned = new List<GameObject>();
+
         for (int i = 0; i < maxToGenerate; i++)
         {
             float x  = Random.Range(mapBounds.min.x, mapBounds.max.x);
@@ -58,7 +48,6 @@ public class MapGeneration : NetworkBehaviour
                 pos, 
                 Quaternion.identity, 
                 asteroids.parent);
-            NetworkServer.Spawn(ast);
             ast.transform.localScale = new Vector3(size, size);
 
             var renderer = ast.GetComponent<SpriteRenderer>();
