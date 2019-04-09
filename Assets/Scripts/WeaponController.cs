@@ -19,6 +19,24 @@ public class WeaponController : MonoBehaviour
 
         _targeting = targetingLaser.GetComponent<Laser>();
         _weapons = weapons.Select(w => w.GetComponent<Weapon>()).ToArray();
+
+        var input = _input as PlayerInput;
+        input.ScrollUp.AddListener(() =>
+        {
+            _activeWeapon++;
+            if (_activeWeapon >= _weapons.Length)
+            {
+                _activeWeapon = 0;
+            }
+        });
+        input.ScrollDown.AddListener(() =>
+        {
+            _activeWeapon--;
+            if (_activeWeapon < 0)
+            {
+                _activeWeapon = _weapons.Length - 1;
+            }
+        });
     }
 
     void Update()
@@ -27,5 +45,10 @@ public class WeaponController : MonoBehaviour
         {
             _weapons[_activeWeapon].Fire(_input);
         }
+    }
+
+    private void SwitchWeapons()
+    {
+
     }
 }
