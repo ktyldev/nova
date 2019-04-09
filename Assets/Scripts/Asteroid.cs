@@ -5,10 +5,12 @@ using UnityEngine.Networking;
 
 public class Asteroid : MonoBehaviour
 {
-    public Transform parent;
-
-    void Start()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        transform.SetParent(parent);
+        var ship = collision.collider.GetComponent<Ship>();
+        if (ship == null)
+            return;
+
+        ship.Die();
     }
 }

@@ -43,12 +43,11 @@ public class MapGeneration : MonoBehaviour
                 _spawned.Any(a => Vector3.Distance(a.transform.position, pos) < minSeperation))
                 continue;
 
-            var ast = Instantiate(
-                asteroids.template, 
-                pos, 
-                Quaternion.identity, 
-                asteroids.parent);
+            var ast = Instantiate(asteroids.template);
+            ast.transform.SetParent(asteroids.parent);
+            ast.transform.localPosition = pos;
             ast.transform.localScale = new Vector3(size, size);
+            ast.transform.Rotate(0, 0, Random.Range(0, 360));
 
             var renderer = ast.GetComponent<SpriteRenderer>();
             renderer.sprite = asteroids.sprites[s];
