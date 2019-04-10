@@ -15,6 +15,7 @@ public class LaserWeapon : Weapon
 
     private float _damageInterval;
     private Laser _laser;
+    private Ship _ship;
 
     private void Awake()
     {
@@ -23,6 +24,8 @@ public class LaserWeapon : Weapon
 
     private void Start()
     {
+        _ship = GetComponentInParent<Ship>();
+
         _laser = laser.GetComponent<Laser>();
         _laser.SetActive(false);
     }
@@ -30,6 +33,7 @@ public class LaserWeapon : Weapon
     protected override IEnumerator DoFire(Func<bool> getFiring)
     {
         _laser.SetActive(true);
+        _laser.SetColour(_ship.WeaponColour);
 
         float elapsed = 0;
         float chunk = damage * _damageInterval;

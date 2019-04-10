@@ -33,6 +33,7 @@ public class Gun : Weapon
 
             var b = Instantiate(bullet, emitter.position, emitter.rotation)
                 .GetComponent<Bullet>();
+            b.GetComponent<SpriteRenderer>().color = _ship.WeaponColour;
             // cheap hack lol
             b.ignore = _ship;
             b.transform.SetParent(Game.Instance.bulletParent);

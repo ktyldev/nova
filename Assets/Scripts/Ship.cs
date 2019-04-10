@@ -10,6 +10,8 @@ public class Ship : MonoBehaviour
 
     public IInputProvider InputProvider { get; private set; }
 
+    public Color WeaponColour => _guideWeapon.Colour;
+
     // cheap hack
     private WeaponController _guideWeapon;
 
@@ -34,7 +36,7 @@ public class Ship : MonoBehaviour
     {
         foreach (var p in _weaponIndicatorPanels)
         {
-            p.Colour = _guideWeapon.Colour;
+            p.Colour = WeaponColour;
         }
     }
 
