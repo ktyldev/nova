@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
@@ -24,7 +23,7 @@ public class WeaponController : MonoBehaviour
             }
 
             return _weapon;
-        }                   
+        }
     }
     public WeaponMeta[] weaponData;
 
@@ -63,11 +62,14 @@ public class WeaponController : MonoBehaviour
         });
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if (_input.IsFiring)
-        {
-            _activeWeapon.weapon.Fire(_input);
-        }
+        bool f = !_input.IsFiring;
+        _targeting.SetActive(f);
+
+        if (f) return;
+
+        _activeWeapon.weapon.Fire(_input);
     }
+
 }
