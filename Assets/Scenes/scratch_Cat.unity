@@ -889,6 +889,7 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2.5
   minSeperation: 5
+  centreRadius: 5
 --- !u!114 &1903553092
 MonoBehaviour:
   m_ObjectHideFlags: 0
