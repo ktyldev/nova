@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3953188388772430621}
   - component: {fileID: 7326366408797354251}
+  - component: {fileID: 1576922181947496239}
   m_Layer: 0
   m_Name: Outer_L
   m_TagString: Untagged
@@ -79,6 +80,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1576922181947496239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593596284229799221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aed75b347b128f4b8d2de747495d25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &968181412605498162
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 268935169022410581}
   - component: {fileID: 8174558810460399090}
+  - component: {fileID: 330572113488793038}
   m_Layer: 0
   m_Name: Outer_R
   m_TagString: Untagged
@@ -158,6 +172,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &330572113488793038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968181412605498162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aed75b347b128f4b8d2de747495d25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2191141425775660255
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,8 +451,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementType: 0
-  switchingWeapon: 0
-  currentWeapon: 0
 --- !u!114 &6436429605022071032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c767c1113b5464badd702e640aa36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponIndicators:
+  - {fileID: 593596284229799221}
+  - {fileID: 968181412605498162}
 --- !u!114 &6436429605022071029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,6 +856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6743352327196645891}
   - component: {fileID: 874027007342239163}
+  - component: {fileID: 2148091391724280221}
   m_Layer: 0
   m_Name: Central
   m_TagString: Untagged
@@ -898,6 +926,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2148091391724280221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365902586369503316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aed75b347b128f4b8d2de747495d25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4088965711581586032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -975,6 +1015,56 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].gameObject
+      value: 
+      objectReference: {fileID: 6501971339845053784}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].gameObject
+      value: 
+      objectReference: {fileID: 4927291737123381383}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive
@@ -1031,6 +1121,24 @@ GameObject:
 --- !u!4 &4110261560876031205 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 122856930898607765, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4088965711581586032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2642126420925428345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2023342590597632009, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4088965711581586032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6501971339845053784 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7099160491220438824, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4088965711581586032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4927291737123381383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8998100916790248183, guid: 73bb7fd188bb6c843b49a65567ffa52d,
     type: 3}
   m_PrefabInstance: {fileID: 4088965711581586032}
   m_PrefabAsset: {fileID: 0}
@@ -1121,6 +1229,46 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: targetingLaser
+      value: 
+      objectReference: {fileID: 2642126420925428345}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].gameObject
+      value: 
+      objectReference: {fileID: 6501971339845053784}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].gameObject
+      value: 
+      objectReference: {fileID: 4927291737123381383}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive
@@ -1168,6 +1316,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73bb7fd188bb6c843b49a65567ffa52d, type: 3}
+--- !u!1 &6471053238939206566 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2023342590597632009, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5033221180285342639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4930859148276837690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 122856930898607765, guid: 73bb7fd188bb6c843b49a65567ffa52d,
@@ -1177,6 +1331,18 @@ Transform:
 --- !u!1 &4930859148276837693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 122856930898607762, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5033221180285342639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4109036456931430744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8998100916790248183, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5033221180285342639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2836387217965833351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7099160491220438824, guid: 73bb7fd188bb6c843b49a65567ffa52d,
     type: 3}
   m_PrefabInstance: {fileID: 5033221180285342639}
   m_PrefabAsset: {fileID: 0}
@@ -1347,6 +1513,46 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: targetingLaser
+      value: 
+      objectReference: {fileID: 6471053238939206566}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].gameObject
+      value: 
+      objectReference: {fileID: 2836387217965833351}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].gameObject
+      value: 
+      objectReference: {fileID: 4109036456931430744}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive
@@ -1394,15 +1600,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73bb7fd188bb6c843b49a65567ffa52d, type: 3}
---- !u!1 &6436429604571771101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 122856930898607762, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6406004495337721423}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6436429604571771098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 122856930898607765, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6406004495337721423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6436429604571771101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 122856930898607762, guid: 73bb7fd188bb6c843b49a65567ffa52d,
     type: 3}
   m_PrefabInstance: {fileID: 6406004495337721423}
   m_PrefabAsset: {fileID: 0}
@@ -1793,6 +1999,46 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: targetingLaser
+      value: 
+      objectReference: {fileID: 2642126420925428345}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].gameObject
+      value: 
+      objectReference: {fileID: 6501971339845053784}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[0].colour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].gameObject
+      value: 
+      objectReference: {fileID: 4927291737123381383}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: weaponData.Array.data[1].colour.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive
@@ -1840,15 +2086,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73bb7fd188bb6c843b49a65567ffa52d, type: 3}
---- !u!1 &6406004495111738032 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 122856930898607762, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6436429604211600418}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6406004495111738039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 122856930898607765, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6436429604211600418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6406004495111738032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 122856930898607762, guid: 73bb7fd188bb6c843b49a65567ffa52d,
     type: 3}
   m_PrefabInstance: {fileID: 6436429604211600418}
   m_PrefabAsset: {fileID: 0}

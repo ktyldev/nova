@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b152c8b149196a4fa2c9c5e69865df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 20
+  damage: 1
+  life: 3
+  ignore: {fileID: 0}
 --- !u!212 &2095650706309192112
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -84,7 +88,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 639036288ae35bf43bf1282849ed3fd8, type: 3}
-  m_Color: {r: 0.5188679, g: 0.24230151, b: 0.24230151, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

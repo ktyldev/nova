@@ -8,6 +8,7 @@ public abstract class Weapon : MonoBehaviour
     // this means something different for each weapon type - leave it to the
     // implementor
     public float damage;
+    public Color colour;
 
     protected bool _isFiring;
 

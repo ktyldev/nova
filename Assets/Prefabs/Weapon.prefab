@@ -49,9 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetingLaser: {fileID: 2023342590597632009}
-  weapons:
-  - {fileID: 7099160491220438824}
-  - {fileID: 8998100916790248183}
+  weaponData:
+  - gameObject: {fileID: 7099160491220438824}
+    colour: {r: 1, g: 0, b: 0, a: 1}
+  - gameObject: {fileID: 8998100916790248183}
+    colour: {r: 1, g: 0.62911344, b: 0, a: 1}
+  panels: []
 --- !u!1 &2023342590597632009
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +147,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 1, b: 0, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -398,9 +401,9 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 1, b: 1, a: 1}
-      key1: {r: 0, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 1, b: 1, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -408,7 +411,7 @@ LineRenderer:
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 0
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
@@ -446,6 +449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  colour: {r: 1, g: 0, b: 0, a: 1}
   damageFrequency: 5
   laser: {fileID: 7099160491220438824}
 --- !u!114 &5596749154558457214
@@ -510,6 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  colour: {r: 0, g: 1, b: 0, a: 1}
   emitter: {fileID: 1352703372087346270}
   bullet: {fileID: 1949231094303805714, guid: 7c3f9642d89995b4781a558a66da3f03, type: 3}
   fireRate: 2.5
