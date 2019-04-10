@@ -87,4 +87,10 @@ public class Laser : MonoBehaviour
     {
         _line.positionCount = active ? 2 : 0;
     }
+
+    public void SetColour(Color colour)
+    {
+        _line.startColor = colour;
+        _line.endColor = colour;
+    }
 }
