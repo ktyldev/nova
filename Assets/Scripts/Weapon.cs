@@ -12,6 +12,8 @@ public abstract class Weapon : MonoBehaviour
 
     protected bool _isFiring;
 
+    private bool _stop;
+
     public void Fire(IInputProvider input)
     {
         // can't fire a weapon that's already firing
@@ -24,9 +26,17 @@ public abstract class Weapon : MonoBehaviour
     private IEnumerator DoFire(IInputProvider input)
     {
         _isFiring = true;
-        yield return DoFire(() => input.IsFiring);
+
+        yield return DoFire(() => input.IsFiring && !_stop);
+
         _isFiring = false;
+        _stop = false;
     }
 
     protected abstract IEnumerator DoFire(Func<bool> getFiring);
+
+    public void Stop()
+    {
+        _stop = true;
+    }
 }
