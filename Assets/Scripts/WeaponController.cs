@@ -50,6 +50,7 @@ public class WeaponController : MonoBehaviour
 
     private void CycleWeaponUp()
     {
+        StopWeapons();
         _index++;
         if (_index >= weaponData.Length)
         {
@@ -59,10 +60,19 @@ public class WeaponController : MonoBehaviour
 
     private void CycleWeaponDown()
     {
+        StopWeapons();
         _index--;
         if (_index < 0)
         {
             _index = weaponData.Length - 1;
+        }
+    }
+
+    private void StopWeapons()
+    {
+        foreach (var w in weaponData)
+        {
+            w.weapon.Stop();
         }
     }
 
