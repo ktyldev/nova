@@ -50,6 +50,8 @@ public class LightSource : MonoBehaviour
         return ray;
     }
 
+
+
     // TODO: possibly reduces the number of points to sample from the collider?
     public HitObject FindEdges(PolygonCollider2D collider)
     {
