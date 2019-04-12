@@ -466,6 +466,7 @@ MonoBehaviour:
   weaponIndicators:
   - {fileID: 593596284229799221}
   - {fileID: 968181412605498162}
+  weaponRotationSpeed: 0.55
 --- !u!114 &6436429605022071029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,16 +1023,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
-      propertyPath: weaponData.Array.data[1].colour.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponData.Array.data[1].colour.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
       propertyPath: weaponData.Array.data[0].colour.r
       value: 1
       objectReference: {fileID: 0}
@@ -1048,11 +1039,6 @@ PrefabInstance:
     - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: weaponData.Array.data[0].colour.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponData.Array.data[1].colour.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
@@ -1253,16 +1239,6 @@ PrefabInstance:
       propertyPath: weaponData.Array.data[1].gameObject
       value: 
       objectReference: {fileID: 4927291737123381383}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponData.Array.data[1].colour.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponData.Array.data[1].colour.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive
@@ -2029,16 +2005,6 @@ PrefabInstance:
       propertyPath: weaponData.Array.data[1].gameObject
       value: 
       objectReference: {fileID: 4927291737123381383}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponData.Array.data[1].colour.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: weaponData.Array.data[1].colour.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive

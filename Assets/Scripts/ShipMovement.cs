@@ -30,35 +30,25 @@ public class ShipMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
-        RotateShip();
-        RotateWeapons();
+        Move();
+        Rotate();
     }
 
-    private void Movement()
+    private void OnGUI()
+    {
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 5); 
+    }
+
+    private void Move()
     {
         _rb.AddForce(_input.AccelerationDir * acceleration);
     }
 
-    private void RotateShip()
+    private void Rotate()
     {
         var aimDir = (_input.TargetPosition - (Vector2)transform.position).normalized;
         var lookDir = Vector3.Lerp(transform.up, aimDir, rotationSpeed);
 
         transform.rotation *= Quaternion.FromToRotation(transform.up, lookDir);
-    }
-
-    private void RotateWeapons()
-    {
-        var targetPos = _input.TargetPosition;
-
-        foreach (var w in weapons)
-        {
-            var aimDir = (targetPos - (Vector2)w.transform.position).normalized;
-
-            var target = Quaternion.LookRotation(transform.forward, aimDir);
-
-            w.transform.rotation = Quaternion.Lerp(w.transform.rotation, target, weaponRotationSpeed);
-        }
     }
 }

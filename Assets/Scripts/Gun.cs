@@ -12,7 +12,6 @@ public class Gun : Weapon
     public float fireRate = 2.5f;
 
     private float _fireInterval;
-    // TODO: cheap hack lol
     private Ship _ship;
 
     private void Awake()

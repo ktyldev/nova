@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D _rb;
 
     // TODO: this is a cheap hack
-    public Ship ignore;
+    public Ship ignore { get; set; }
 
     void Start()
     {

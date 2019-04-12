@@ -44,22 +44,56 @@ public class WeaponController : MonoBehaviour
         _targeting = targetingLaser.GetComponent<Laser>();
 
         var input = _input as PlayerInput;
-        input.ScrollUp.AddListener(() =>
+        input.ScrollUp.AddListener(CycleWeaponUp);
+        input.ScrollDown.AddListener(CycleWeaponDown);
+    }
+
+    private void CycleWeaponUp()
+    {
+        _index++;
+        if (_index >= weaponData.Length)
         {
-            _index++;
-            if (_index >= weaponData.Length)
-            {
-                _index = 0;
-            }
-        });
-        input.ScrollDown.AddListener(() =>
+            _index = 0;
+        }
+    }
+
+    private void CycleWeaponDown()
+    {
+        _index--;
+        if (_index < 0)
         {
-            _index--;
-            if (_index < 0)
-            {
-                _index = weaponData.Length - 1;
-            }
-        });
+            _index = weaponData.Length - 1;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Aim();
+    }
+
+    private void Aim()
+    {
+        var up = -_ship.transform.forward;
+        var targetPos = _input.TargetPosition;
+
+        var aimDir = (targetPos - (Vector2)transform.position).normalized;
+        var target = Quaternion.LookRotation(aimDir, up);
+
+        var limit = 15f;
+        var leftLim = Quaternion.Euler(0, 0, -limit) * _ship.transform.up;
+        var rightLim = Quaternion.Euler(0, 0, limit) * _ship.transform.up;
+
+        var angle = Vector3.SignedAngle(aimDir, _ship.transform.up, up);
+        if (angle < -limit)
+        {
+            target = Quaternion.LookRotation(leftLim, up);
+        }
+        else if (angle > limit)
+        {
+            target = Quaternion.LookRotation(rightLim, up);
+        }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, target, _ship.weaponRotationSpeed);
     }
 
     void LateUpdate()

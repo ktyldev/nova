@@ -8,6 +8,9 @@ public class Ship : MonoBehaviour
     public GameObject[] weaponIndicators;
     private LightPanel[] _weaponIndicatorPanels;
 
+    [Range(0, 1)]
+    public float weaponRotationSpeed = 0.55f;
+
     public IInputProvider InputProvider { get; private set; }
 
     public Color WeaponColour => _guideWeapon.Colour;

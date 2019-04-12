@@ -76,7 +76,8 @@ public class Laser : MonoBehaviour
             }
         }
 
-        var dir = (Vector3)_input.TargetPosition - start;
+        //var dir = (Vector3)_input.TargetPosition - start;
+        var dir = transform.forward;
         dir.Normalize();
 
         var end = start + dir * l;
