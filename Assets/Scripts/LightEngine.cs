@@ -104,7 +104,7 @@ public class LightEngine : MonoBehaviour
         int ri = 0;
         for (int i = 0; i < hits.Length; i++)
         {
-            var collider = hits[i].collider as PolygonCollider2D;
+            var collider = hits[i].collider as CircleCollider2D;
             source.GetRays(ref rays, ri, collider);
             ri += 4;
         }
@@ -165,7 +165,7 @@ public class LightEngine : MonoBehaviour
         for (int i = 0; i < hits.Length; i++)
         {
             // find edges
-            var collider = hits[i].collider as PolygonCollider2D;
+            var collider = hits[i].collider as CircleCollider2D;
             source.GetShadowPositions(ref verts, vi, collider);
 
             // make two tris
