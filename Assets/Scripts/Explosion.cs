@@ -6,12 +6,16 @@ public class Explosion : MonoBehaviour
 {
     public float startScale;
     public float duration;
+    public float endScale = 1f;
 
     private Vector2 _endScale;
 
+    public static void New(GameObject template, Vector3 position) =>
+        Instantiate(template, position, Quaternion.identity);
+
     private void Awake()
     {
-        _endScale = transform.localScale;
+        _endScale = endScale * Vector2.one;
         transform.localScale = Vector2.one * startScale;
     }
 

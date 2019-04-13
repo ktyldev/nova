@@ -7,7 +7,8 @@ public class Game : MonoBehaviour
 {
     public static Game Instance { get; private set; }
 
-    public GameObject explosion;
+    public GameObject shipExplosion;
+    public GameObject bulletExplosion;
     public Transform bulletParent;
 
     private void Awake()

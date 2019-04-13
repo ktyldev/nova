@@ -46,7 +46,7 @@ public class Ship : MonoBehaviour
     // TODO: play explosion sound
     public void Die()
     {
-        Instantiate(Game.Instance.explosion, transform.position, Quaternion.identity);
+        Explosion.New(Game.Instance.shipExplosion, transform.position);
         Destroy(gameObject);
 
         Game.Instance.Restart(3);

@@ -29,6 +29,13 @@ public class Bullet : MonoBehaviour
     {
         var go = collision.gameObject;
 
+        var asteroid = go.GetComponent<Asteroid>();
+        if (asteroid != null)
+        {
+            Explode();
+            return;
+        }
+
         // don't hit player that fired the bullet
         var ship = go.GetComponent<Ship>();
         if (ship == ignore)
@@ -38,6 +45,13 @@ public class Bullet : MonoBehaviour
         if (health == null)
             return;
 
+        Explode();
         health.TakeDamage(damage);
+    }
+
+    private void Explode()
+    {
+        Explosion.New(Game.Instance.bulletExplosion, transform.position);
+        Destroy(gameObject);
     }
 }
