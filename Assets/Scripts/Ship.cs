@@ -12,6 +12,7 @@ public class Ship : MonoBehaviour
     public float weaponRotationSpeed = 0.55f;
 
     public IInputProvider InputProvider { get; private set; }
+    public LightSource LightSource { get; private set; }
 
     public Color WeaponColour => _guideWeapon.Colour;
 
@@ -25,6 +26,8 @@ public class Ship : MonoBehaviour
         _weaponIndicatorPanels = weaponIndicators
             .Select(go => go.GetComponent<LightPanel>())
             .ToArray();
+
+        LightSource = GetComponentInChildren<LightSource>();
     }
 
     private void Start()

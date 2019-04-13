@@ -11,6 +11,19 @@ public class Game : MonoBehaviour
     public GameObject bulletExplosion;
     public Transform bulletParent;
     public GameObject ship;
+    private Ship _ship;
+    public Ship Ship
+    {
+        get
+        {
+            if (_ship == null)
+            {
+                _ship = ship.GetComponent<Ship>();
+            }
+
+            return _ship;
+        }
+    }
 
     private void Awake()
     {
