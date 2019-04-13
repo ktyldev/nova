@@ -4,6 +4,8 @@ using UnityEngine;
 public class LightEngine : MonoBehaviour
 { 
     public GameObject shadows;
+    public bool showCursor;
+    public Transform cursor;
 
     // angle by which to miss edges of objects while raycasting past them
     public float edgeMiss = 0.02f;
@@ -53,6 +55,19 @@ public class LightEngine : MonoBehaviour
     private void Start()
     {
         _lightMeshes = GetComponentsInChildren<LightMesh>();
+
+        if (showCursor)
+        {
+            cursor.transform.SetParent(transform);
+        }
+    }
+
+    private void Update()
+    {
+        if (!showCursor)
+            return;
+
+        cursor.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 }
 

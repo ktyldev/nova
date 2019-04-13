@@ -11,6 +11,8 @@ public class Game : MonoBehaviour
     public GameObject bulletExplosion;
     public Transform bulletParent;
 
+    public Ship Ship { get; set; }
+
     private void Awake()
     {
         if (Instance != null)
