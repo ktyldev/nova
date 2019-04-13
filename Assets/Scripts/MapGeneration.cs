@@ -44,9 +44,6 @@ public class MapGeneration : MonoBehaviour
             var renderer = ast.GetComponent<SpriteRenderer>();
             renderer.sprite = asteroids.sprites[s];
 
-            // update collider since the sprite has changed
-            ast.AddComponent<PolygonCollider2D>();
-
             _spawned.Add(ast);
         }
     }

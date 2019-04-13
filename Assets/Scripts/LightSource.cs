@@ -50,6 +50,46 @@ public class LightSource : MonoBehaviour
         return ray;
     }
 
+    public HitObject FindEdges(CircleCollider2D collider)
+    {
+        // position of light source
+        var o = transform.position;
+        // position of circle
+        var c = collider.transform.position;
+        var oc = c - o;
+        var ocn = oc.normalized;
+        // radius of circle
+        var r = collider.radius * collider.transform.localScale.x;
+        var d = oc.magnitude;
+
+        // sin(t) = O/H = r/d
+        // t = sin-1(r/d)
+        // theta
+        var trad = Mathf.Asin(r / d);
+        var tdeg = trad * Mathf.Rad2Deg;
+
+        // distance from light source to hit edge
+        // x = dcos(t)
+        var x = d * Mathf.Cos(trad);
+
+        // 0 left
+        // 1 right
+        var hits = new HitVertex[2];
+        var rots = new[] { Quaternion.Euler(0, 0, tdeg), Quaternion.Euler(0, 0, -tdeg) };
+        for (int i = 0; i < 2; i++)
+        {
+            var toHit = rots[i] * ocn * x;
+            hits[i].worldPosition = o + toHit;
+            hits[i].angleFromCentre = Vector2.SignedAngle(ocn, toHit.normalized);
+        }
+
+        return new HitObject()
+        {
+            left = hits[0],
+            right = hits[1]
+        };
+    }
+
     // TODO: possibly reduces the number of points to sample from the collider?
     public HitObject FindEdges(PolygonCollider2D collider)
     {
@@ -94,7 +134,7 @@ public class LightSource : MonoBehaviour
     /// get four rays for the collider - one hitting each edge and one going either side
     /// </summary>
     /// <param name="collider"></param>
-    public void GetRays(ref LightRay[] dest, int startIndex, PolygonCollider2D collider)
+    public void GetRays(ref LightRay[] dest, int startIndex, CircleCollider2D collider)
     {
         if (startIndex + 3 >= dest.Length || startIndex < 0)
             throw new System.Exception();
@@ -116,7 +156,7 @@ public class LightSource : MonoBehaviour
         dest[startIndex + 3] = Raycast(rotL * dirR);
     }
 
-    public void GetShadowPositions(ref Vector3[] dest, int startIndex, PolygonCollider2D collider)
+    public void GetShadowPositions(ref Vector3[] dest, int startIndex, CircleCollider2D collider)
     {
         if (startIndex + 3 >= dest.Length || startIndex < 0)
             throw new System.Exception();
@@ -143,6 +183,11 @@ public class LightSource : MonoBehaviour
 
     public void GetHits(ref RaycastHit2D[] dest) =>
         dest = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0, _mask);
+
+    private void OnDestroy()
+    {
+        LightEngine.Unregister(this);
+    }
 }
 
 public struct LightRay
