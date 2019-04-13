@@ -15,6 +15,7 @@ public class MapGeneration : MonoBehaviour
     public AsteroidsInfo asteroids;
     public float maxToGenerate;
     public Bounds mapBounds;
+    public Bounds spawnBounds;
     public float minScale, maxScale;
     public float minSeperation;
     public float centreRadius;
@@ -24,30 +25,6 @@ public class MapGeneration : MonoBehaviour
     private void Start()
     {
         GenerateAsteroids();
-    }
-
-    private Vector3 SpawnPosition
-    {
-        get
-        {
-            Vector3 pos = Vector3.zero;
-            do
-            {
-                float x = Random.Range(mapBounds.min.x, mapBounds.max.x);
-                float y = Random.Range(mapBounds.min.y, mapBounds.max.y);
-
-                // bad position, skip it
-                pos = new Vector3(x, y, 0);
-                if (pos.magnitude < centreRadius)
-                    continue;
-
-                if (_spawned.Any(a => Vector3.Distance(a.transform.position, pos) < minSeperation))
-                    continue;
-
-            } while (pos == Vector3.zero);
-
-            return pos;
-        }
     }
 
     private void GenerateAsteroids()
@@ -60,7 +37,7 @@ public class MapGeneration : MonoBehaviour
 
             var ast = Instantiate(asteroids.template);
             ast.transform.SetParent(asteroids.parent);
-            ast.transform.localPosition = SpawnPosition;
+            ast.transform.localPosition = GetNewAsteroidSpawnPos();
             ast.transform.localScale = new Vector3(size, size);
             ast.transform.Rotate(0, 0, Random.Range(0, 360));
 
@@ -72,5 +49,26 @@ public class MapGeneration : MonoBehaviour
 
             _spawned.Add(ast);
         }
+    }
+
+    private Vector3 GetNewAsteroidSpawnPos()
+    {
+        Vector3 pos = Vector3.zero;
+        do
+        {
+            float x = Random.Range(mapBounds.min.x, mapBounds.max.x);
+            float y = Random.Range(mapBounds.min.y, mapBounds.max.y);
+
+            // bad position, skip it
+            pos = new Vector3(x, y, 0);
+            if (spawnBounds.Contains(pos))
+                continue;
+
+            if (_spawned.Any(a => Vector3.Distance(a.transform.position, pos) < minSeperation))
+                continue;
+
+        } while (pos == Vector3.zero);
+
+        return pos;
     }
 }
