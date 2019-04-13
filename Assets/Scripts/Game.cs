@@ -10,8 +10,7 @@ public class Game : MonoBehaviour
     public GameObject shipExplosion;
     public GameObject bulletExplosion;
     public Transform bulletParent;
-
-    public Ship Ship { get; set; }
+    public GameObject ship;
 
     private void Awake()
     {

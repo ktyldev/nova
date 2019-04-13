@@ -9,7 +9,6 @@ public class LightMesh : MonoBehaviour
     private LightSource _source;
     private Mesh _mesh;
     private IComparer<LightRay> _comparer = new LightRayAngleComparer();
-    private PolygonCollider2D _collider;
 
     public void CreateMesh(LightSource source)
     {
@@ -22,7 +21,6 @@ public class LightMesh : MonoBehaviour
         var filter = go.AddComponent<MeshFilter>();
         filter.mesh = new Mesh();
 
-        _collider = go.AddComponent<PolygonCollider2D>();
         _mesh = filter.mesh;
     }
 
@@ -33,7 +31,6 @@ public class LightMesh : MonoBehaviour
             var point = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             print(ContainsPoint(point));
-
         }    
     }
 
