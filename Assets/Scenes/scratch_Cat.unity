@@ -489,6 +489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 764712900}
+  - component: {fileID: 764712901}
   m_Layer: 0
   m_Name: Illumination
   m_TagString: Untagged
@@ -510,6 +511,19 @@ Transform:
   m_Father: {fileID: 891569700}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &764712901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764712899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c59f3d027d60b4ea9aae5f5156ddd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 8c998ffe0a7a6ac428f7b2f28209d1d1, type: 2}
 --- !u!1 &891569699
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,10 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d58cb134554a17468f886f3d5095ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  illumination: {fileID: 764712900}
-  shadows: {fileID: 1503781469}
-  lightMat: {fileID: 2100000, guid: 8c998ffe0a7a6ac428f7b2f28209d1d1, type: 2}
-  shadowMat: {fileID: 2100000, guid: b0444ec0f5be3164ca73cb68717b7caf, type: 2}
+  shadows: {fileID: 1503781468}
   edgeMiss: 0.02
 --- !u!1 &1093672042
 GameObject:
@@ -955,6 +966,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1503781469}
+  - component: {fileID: 1503781470}
   m_Layer: 0
   m_Name: Shadows
   m_TagString: Untagged
@@ -976,6 +988,19 @@ Transform:
   m_Father: {fileID: 891569700}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1503781470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503781468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c59f3d027d60b4ea9aae5f5156ddd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: b0444ec0f5be3164ca73cb68717b7caf, type: 2}
 --- !u!1 &1610859284
 GameObject:
   m_ObjectHideFlags: 0
