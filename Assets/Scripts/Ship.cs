@@ -48,5 +48,7 @@ public class Ship : MonoBehaviour
     {
         Instantiate(Game.Instance.explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
+
+        Game.Instance.Restart(3);
     }
 }
