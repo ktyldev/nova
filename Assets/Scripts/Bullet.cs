@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -14,6 +12,17 @@ public class Bullet : MonoBehaviour
 
     // TODO: this is a cheap hack
     public Ship ignore { get; set; }
+
+    public Color Colour
+    {
+        set
+        {
+            foreach (var r in GetComponentsInChildren<SpriteRenderer>())
+            {
+                r.color = value;
+            }
+        }
+    }
 
     void Start()
     {
