@@ -34,6 +34,15 @@ public class Enemy : MonoBehaviour
         StartCoroutine(WaitInShadow());
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var ship = collision.gameObject.GetComponent<Ship>();
+        if (ship != null)
+        {
+            ship.Die();
+        }
+    }
+
     private IEnumerator WaitInShadow()
     {
         while (_hidden)
