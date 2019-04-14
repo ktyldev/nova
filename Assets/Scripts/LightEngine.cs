@@ -15,12 +15,9 @@ public class LightEngine : MonoBehaviour
 
     public static LightEngine Instance { get; private set; }
 
-    private IComparer<LightRay> _comparer;
-
     // areas illuminated by particular light sources
     private Dictionary<LightSource, LightMesh> _sourceMeshes
         = new Dictionary<LightSource, LightMesh>();
-    private LightMesh[] _lightMeshes;
 
     public LightMesh this[LightSource key]
     {
@@ -62,13 +59,10 @@ public class LightEngine : MonoBehaviour
             throw new System.Exception();
 
         Instance = this;
-        _comparer = new LightRayAngleComparer();
     }
 
     private void Start()
     {
-        _lightMeshes = GetComponentsInChildren<LightMesh>();
-
         if (showCursor)
         {
             cursor.transform.SetParent(transform);

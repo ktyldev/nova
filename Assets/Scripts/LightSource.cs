@@ -20,11 +20,6 @@ public class LightSource : MonoBehaviour
         LightEngine.Register(this);
     }
 
-    private float GetAngle(Vector2 p1, Vector2 p2)
-    {
-        return Vector2.SignedAngle(p1, p2);
-    }
-
     public LightRay Raycast(Vector2 dir)
     {
         dir.Normalize();
@@ -88,46 +83,6 @@ public class LightSource : MonoBehaviour
             left = hits[0],
             right = hits[1]
         };
-    }
-
-    // TODO: possibly reduces the number of points to sample from the collider?
-    public HitObject FindEdges(PolygonCollider2D collider)
-    {
-        if (collider == null)
-        {
-            throw new System.Exception();
-        }
-
-        var toCentre = collider.transform.position - transform.position;
-        var colliderPos = (Vector2)collider.transform.position;
-
-        HitVertex v;
-        var o = new HitObject();
-
-        for (int i = 0; i < collider.points.Length; i++)
-        {
-            var worldPos = colliderPos + collider.points[i] * collider.transform.localScale;
-            var toVert = worldPos - (Vector2)transform.position;
-
-            var angleFromCentre = Vector2.SignedAngle(toCentre.normalized, toVert.normalized);
-
-            v = new HitVertex
-            {
-                worldPosition = worldPos,
-                angleFromCentre = angleFromCentre
-            };
-
-            if (v.angleFromCentre < o.right.angleFromCentre)
-            {
-                o.right = v;
-            }
-            else if (v.angleFromCentre >= o.left.angleFromCentre)
-            {
-                o.left = v;
-            }
-        }
-
-        return o;
     }
 
     /// <summary>

@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 7140556756416947429, guid: a8b66e3562406824f92e6133e17a57cb, type: 3}
+  spawnDelay: 2
 --- !u!1 &277443604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1002,16 @@ PrefabInstance:
         type: 3}
       propertyPath: range
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191141425775660255, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813563111884034859, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 645a27ca422109e479aab59c889cd678, type: 3}

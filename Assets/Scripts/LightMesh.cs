@@ -24,16 +24,6 @@ public class LightMesh : MonoBehaviour
         _mesh = filter.mesh;
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            var point = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            print(ContainsPoint(point));
-        }    
-    }
-
     private void FixedUpdate()
     {
         if (_source == null)
@@ -213,6 +203,9 @@ public class LightMesh : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_mesh == null)
+            return;
+
         _mesh.Clear();
     }
 }

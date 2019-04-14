@@ -25,6 +25,8 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
+        // magic number idgaf lul
+        yield return new WaitForSeconds(1);
         while (true)
         {
             var pos = GetSpawnLocation();
@@ -41,13 +43,16 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector2? GetSpawnLocation()
     {
+        if (_source == null)
+            return null;
+
         var bounds = new Bounds(_source.Position, Vector3.one * _source.range);
         var lightMesh = LightEngine.Instance[_source];
         if (lightMesh == null)
             return null;
 
         Vector2 point;
-        bool done = false;
+        bool done;
         do
         {
             point = new Vector2
