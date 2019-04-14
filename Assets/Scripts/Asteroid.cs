@@ -7,10 +7,10 @@ public class Asteroid : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var ship = collision.collider.GetComponent<Ship>();
-        if (ship == null)
+        var health = collision.gameObject.GetComponent<Health>();
+        if (health == null)
             return;
 
-        ship.Die();
+        health.Die();
     }
 }

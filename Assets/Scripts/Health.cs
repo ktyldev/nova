@@ -43,6 +43,12 @@ public class Health : MonoBehaviour
         hit.Invoke(Normalised);
     }
 
+    public void Die()
+    {
+        _current = 0;
+        death.Invoke();
+    }
+
     public override string ToString()
     {
         return string.Format("{0} health: {1}%", gameObject.ToString(), Normalised * 100);
