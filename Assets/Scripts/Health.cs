@@ -22,8 +22,8 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        hit.AddListener(_ => print(ToString()));
-        death.AddListener(() => print(ToString() + " - dead"));
+        //hit.AddListener(_ => print(ToString()));
+        //death.AddListener(() => print(ToString() + " - dead"));
     }
 
     public void TakeDamage(float damage)

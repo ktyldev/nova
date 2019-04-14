@@ -8,11 +8,19 @@ public abstract class Weapon : MonoBehaviour
     // this means something different for each weapon type - leave it to the
     // implementor
     public float damage;
+    public float heat;
     public Color colour;
 
     protected bool _isFiring;
+    protected Heat _heat;
 
     private bool _stop;
+
+    protected virtual void Awake()
+    {
+        var ship = GetComponentInParent<Ship>();
+        _heat = ship.GetComponent<Heat>();
+    }
 
     public void Fire(IInputProvider input)
     {

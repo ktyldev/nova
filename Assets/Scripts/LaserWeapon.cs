@@ -17,8 +17,9 @@ public class LaserWeapon : Weapon
     private Laser _laser;
     private Ship _ship;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _damageInterval = 1f / damageFrequency;
     }
 
@@ -48,6 +49,7 @@ public class LaserWeapon : Weapon
 
             // go back so the interval check will fail next time
             elapsed -= _damageInterval;
+            _heat.Add(heat);
 
             // damage interval has passed, look for a health component and smack it
             var health = _laser.Occluder?.GetComponent<Health>();

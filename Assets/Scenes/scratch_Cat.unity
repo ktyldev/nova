@@ -253,6 +253,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 7140556756416947429, guid: a8b66e3562406824f92e6133e17a57cb, type: 3}
   spawnDelay: 2
+--- !u!1 &270292173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8365902586369503316, guid: 645a27ca422109e479aab59c889cd678,
+    type: 3}
+  m_PrefabInstance: {fileID: 1445808411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &277443604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1017,31 @@ PrefabInstance:
     - target: {fileID: 7813563111884034859, guid: 645a27ca422109e479aab59c889cd678,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6436429605022071032, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: heatIndicators.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6436429605022071032, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: heatIndicators.Array.data[0]
+      value: 
+      objectReference: {fileID: 270292173}
+    - target: {fileID: 2867454962149616201, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: colour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2867454962149616201, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: colour.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2867454962149616201, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: colour.b
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
