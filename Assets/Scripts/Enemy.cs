@@ -5,6 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float rotationSpeed;
+    public float rotationTime = 0.5f;
+    public float dashSpeed;
+    public float dashTime = 2.0f;
 
     private Health _health;
     private Transform _target;
@@ -39,30 +42,40 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        
-
-        print("no longer hidden!");
+        yield return Dash();        
     }
 
-    private void FixedUpdate()
+    private IEnumerator Dash()
     {
-        if (_hidden)
-            return;
+        // turn to face player
+        var toTarget = (_target.position - transform.position).normalized;
+        var targetRotation = Quaternion.FromToRotation(transform.up, toTarget);
 
-        var toTarget = _target.position - transform.position;
-        var cross = Vector3.Cross(toTarget, transform.up);
-
-        if (cross.z > 0)
+        var start = Time.time;
+        float elapsed = 0;
+        while (elapsed < 1)
         {
-            transform.Rotate(0, 0, -rotationSpeed * Time.fixedDeltaTime);
-        }
-        else
-        {
-            transform.Rotate(0, 0, rotationSpeed * Time.fixedDeltaTime);
+            elapsed = (Time.time - start) / rotationTime;
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation, 
+                targetRotation, 
+                elapsed);
+
+            yield return new WaitForEndOfFrame();
         }
 
-        var dir = _target.position - transform.position;
-        _rb.AddForce(dir);
+        // accelerate a bunch
+        start = Time.time;
+        elapsed = 0;
+        while (elapsed < 1)
+        {
+            elapsed = (Time.time - start) / dashTime;
+            _rb.AddForce(toTarget * dashSpeed);
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        // TODO: come around for another try?
     }
 
     private void Explode()
