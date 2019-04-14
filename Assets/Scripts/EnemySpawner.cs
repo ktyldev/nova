@@ -52,8 +52,8 @@ public class EnemySpawner : MonoBehaviour
             return null;
 
         Vector2 point;
-        bool done;
-        do
+        int tries = 10;
+        for (int i = 0; i < tries; i++)
         {
             point = new Vector2
             {
@@ -61,9 +61,10 @@ public class EnemySpawner : MonoBehaviour
                 y = Random.Range(bounds.center.y - bounds.max.y, bounds.center.y + bounds.max.y)
             };
 
-            done = lightMesh.ContainsPoint(point);
-        } while (!done);
+            if (lightMesh.ContainsPoint(point))
+                return point;
+        }
 
-        return point;
+        return null;
     }
 }
