@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/scratch_Cat.unity
     guid: 28fb2b1bb6a012e4e803d5cddbb78bae
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: adaac1206eab99d45965fc1718ba4b9a
+  - enabled: 1
+    path: Assets/Scenes/scratch_Joe.unity
+    guid: b7c6d7a07df8d104297f8ec19c515f3a
   m_configObjects: {}
