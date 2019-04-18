@@ -462,8 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aac3d2fa33b09d40bd670256ec554cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
-  explosion: {fileID: 1222983843}
+  shipExplosion: {fileID: 0}
+  bulletExplosion: {fileID: 0}
   bulletParent: {fileID: 0}
 --- !u!114 &485773754
 MonoBehaviour:
@@ -522,9 +522,13 @@ MonoBehaviour:
   mapBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 100, y: 100, z: 100}
+  spawnBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   minScale: 0.5
   maxScale: 2.5
   minSeperation: 5
+  centreRadius: 0
 --- !u!1 &529734007
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,6 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startScale: 0.1
   duration: 0.3
+  endScale: 1
 --- !u!1 &1323892185
 GameObject:
   m_ObjectHideFlags: 0
