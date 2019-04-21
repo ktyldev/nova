@@ -27,7 +27,7 @@ public class WeaponController : MonoBehaviour
     }
     public WeaponMeta[] weaponData;
 
-    private IInputProvider _input;
+    private PlayerInput _input;
     private Laser _targeting;
     private Ship _ship;
     private WeaponMeta[] _weaponData;
@@ -39,7 +39,7 @@ public class WeaponController : MonoBehaviour
     private void Start()
     {
         _ship = GetComponentInParent<Ship>();
-        _input = _ship.InputProvider;
+        _input = (PlayerInput)_ship.InputProvider;
 
         _targeting = targetingLaser.GetComponent<Laser>();
 
@@ -108,6 +108,8 @@ public class WeaponController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (_input.IsVenting) return;
+
         bool f = !_input.IsFiring;
         _targeting.SetActive(f);
 
