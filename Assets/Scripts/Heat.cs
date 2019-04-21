@@ -78,7 +78,7 @@ public class Heat : MonoBehaviour
         if (_current >= max)
         {
             _current = max;
-            print("max heat");
+            _ship.Die();
             return;
         }
     }
