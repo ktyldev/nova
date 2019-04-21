@@ -12,11 +12,13 @@ public class ShipMovement : MonoBehaviour
     public GameObject[] weapons;
     [Range(0, 1)]
     public float weaponRotationSpeed;
+    public float heatPerSecond = 1.0f;
 
     private Rigidbody2D _rb;
     private IInputProvider _input;
     private Ship _ship;
 
+    private bool IsAccelerating => _input.AccelerationDir.magnitude > 0 && !_ship.Heat.IsVenting;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -34,13 +36,12 @@ public class ShipMovement : MonoBehaviour
         Rotate();
     }
 
-    private void OnGUI()
-    {
-        Debug.DrawLine(transform.position, transform.position + transform.forward * 5); 
-    }
-
     private void Move()
     {
+        if (_ship.Heat.IsVenting)
+            return;
+
+            _ship.Heat.Add(heatPerSecond * Time.fixedDeltaTime);
         _rb.AddForce(_input.AccelerationDir * acceleration);
     }
 
