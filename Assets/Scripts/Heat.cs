@@ -7,6 +7,9 @@ public class Heat : MonoBehaviour
 {
     public float max;
     public float ventSpeed; // units to vent per second
+    [Range(0, 1)]
+    public float dangerZone; // when heat build up is above this percentage it will pulse
+    public float pulseRate;
     public GameObject[] particleSystems;
     
     private Ship _ship;
@@ -15,7 +18,9 @@ public class Heat : MonoBehaviour
     private ParticleSystem[] _particleSystems;
 
     public float Normalised => _current / max;
-    public Color IndicatorColour => new Color(1, 1 - Normalised, 1 - Normalised);
+    public Color IndicatorColour => Normalised > dangerZone 
+        ? PulseColourIndicator() 
+        : FlatIndicatorColour();
     public bool IsVenting { get; private set; }
 
     // Start is called before the first frame update
@@ -81,5 +86,16 @@ public class Heat : MonoBehaviour
             _ship.Die();
             return;
         }
+    }
+
+    private Color PulseColourIndicator()
+    {
+        var norm = Mathf.Abs(Mathf.Sin(Time.time * pulseRate));
+        return new Color(1, 1 - norm, 1 - norm);
+    }
+
+    private Color FlatIndicatorColour()
+    {
+        return new Color(1, 1 - Normalised, 1 - Normalised); 
     }
 }
