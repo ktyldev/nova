@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 277947742}
   - component: {fileID: 277947744}
   - component: {fileID: 277947743}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,11 +429,11 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277947741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0984545, y: 1.6446971, z: 0.11459494}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1.0984545, y: 1.6446971, z: 0}
   m_Children: []
   m_Father: {fileID: 2099392524}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -504,7 +504,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337715702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -664.00995}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
   m_LocalScale: {x: 36.77594, y: 36.775932, z: 10.507411}
   m_Children:
   - {fileID: 1808388020}
@@ -1077,7 +1077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1131842069}
   - component: {fileID: 1131842070}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NOVA_LOGO_2_white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1092,7 +1092,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131842068}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -227.43675, y: 142.01976, z: -664.00995}
+  m_LocalPosition: {x: -212, y: 143, z: -664.00995}
   m_LocalScale: {x: 15.761118, y: 15.761116, z: 10.507411}
   m_Children: []
   m_Father: {fileID: 2099392524}
@@ -1156,7 +1156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1134482437}
   - component: {fileID: 1134482438}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NOVA_LOGO_2_white
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1171,7 +1171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134482436}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -241.7, y: 149.1, z: -712.075}
+  m_LocalPosition: {x: -241.7, y: 149.1, z: -1013.405}
   m_LocalScale: {x: 16.162537, y: 16.162537, z: 10.775023}
   m_Children: []
   m_Father: {fileID: 827984390}
@@ -1211,8 +1211,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 82057889
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: eb592fcbd8454f74e94d756e6540d23d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1380,8 +1380,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360707493}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1779672, y: 1.7637501, z: 0.12289}
+  m_LocalPosition: {x: 0, y: 0, z: 1000000}
+  m_LocalScale: {x: 1.1779672, y: 1.7637501, z: 0}
   m_Children: []
   m_Father: {fileID: 827984390}
   m_RootOrder: 2
@@ -1412,7 +1412,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1743,15 +1743,15 @@ RectTransform:
   m_GameObject: {fileID: 1720477162}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.93250006, y: 0.93250006, z: 0.93250006}
+  m_LocalScale: {x: 0.93250006, y: 0.93250006, z: 0.9325001}
   m_Children:
   - {fileID: 210273320}
   m_Father: {fileID: 2099392524}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -221.0025, y: 24.244999}
+  m_AnchoredPosition: {x: -221.0025, y: 24.244995}
   m_SizeDelta: {x: 154.18, y: 40.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1720477164
@@ -1975,7 +1975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2258,8 +2258,8 @@ RectTransform:
   - {fileID: 1346669161}
   - {fileID: 1131842069}
   - {fileID: 2064982851}
-  - {fileID: 277947742}
   - {fileID: 1720477163}
+  - {fileID: 277947742}
   m_Father: {fileID: 1544732778}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2297,7 +2297,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
