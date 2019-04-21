@@ -488,18 +488,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: f9c76662863a50740b28aee64c1fb104, type: 3}
     parent: {fileID: 466115129}
   chunks:
-    sideLength: 40
-    maxAsteroids: 25
-  maxToGenerate: 100
-  mapBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 100, y: 100, z: 100}
-  spawnBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 4, y: 4, z: 4}
+    sideLength: 20
+    maxAsteroids: 5
   minScale: 0.5
   maxScale: 2.5
-  minSeperation: 5
   centreRadius: 5
 --- !u!1 &529734007
 GameObject:
@@ -1000,6 +992,11 @@ PrefabInstance:
     - target: {fileID: 6436429605022071035, guid: 645a27ca422109e479aab59c889cd678,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 696879228900134729, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: movementType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6436429605022071032, guid: 645a27ca422109e479aab59c889cd678,

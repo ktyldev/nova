@@ -45,38 +45,71 @@ public class MapGeneration : MonoBehaviour
     {
 
         //GenerateAsteroids();
-        StartCoroutine(SpawnChunks());
+        StartCoroutine(UpdateChunks());
     }
 
-    private IEnumerator SpawnChunks()
+    private void SpawnNeighbourChunks()
+    {
+        var playerPos = Game.Instance.Ship.transform.position;
+        var playerChunk = GetPlayerChunk();
+
+        print("player in chunk: " + playerChunk.Coords);
+
+        var toSpawn = new List<Vector2Int>();
+        foreach (var nPos in Chunk.GetNeighbourPositions(playerChunk.Coords))
+        {
+            if (!_chunks.ContainsKey(nPos))
+            {
+                toSpawn.Add(nPos);
+            }
+        }
+
+        foreach (var pos in toSpawn)
+        {
+            SpawnChunk(pos);
+        }
+    }
+
+    private void CullColdChunks()
+    {
+        var hot = new List<Vector2Int>();
+        hot.Add(GetPlayerChunk().Coords);
+        hot.AddRange(GetPlayerNeighbourPositions());
+
+        var toClear = new List<Vector2Int>();
+
+        foreach (var pos in _chunks.Keys)
+        {
+            if (!hot.Contains(pos))
+            {
+                toClear.Add(pos);
+            } 
+        }
+
+        foreach (var pos in toClear)
+        {
+            _chunks[pos].Clear();
+            _chunks.Remove(pos);
+        }
+    }
+
+
+    private IEnumerator UpdateChunks()
     {
         // spawn first chunk
         SpawnChunk(Vector2Int.zero);
 
         while (true)
         {
-            var playerPos = Game.Instance.Ship.transform.position;
-            var playerChunk = GetPlayerChunk();
-
-            print("player in chunk: " + playerChunk.Coords);
-
-            var toSpawn = new List<Vector2Int>();
-            foreach (var nPos in Chunk.GetNeighbourPositions(playerChunk.Coords))
-            {
-                if (!_chunks.ContainsKey(nPos))
-                {
-                    toSpawn.Add(nPos);
-                }
-            }
-
-            foreach (var pos in toSpawn)
-            {
-                SpawnChunk(pos);
-            }
-
+            SpawnNeighbourChunks();
+            CullColdChunks();
+            
             yield return new WaitForSeconds(2);
         }
     }
+
+    private Vector2Int[] GetPlayerNeighbourPositions() => 
+        Chunk.GetNeighbourPositions(GetPlayerChunk().Coords);
 
     private Chunk GetPlayerChunk()
     {
@@ -97,6 +130,11 @@ public class MapGeneration : MonoBehaviour
 
         _chunks[pos] = new Chunk(pos, CreateAsteroid);
         _chunks[pos].Generate();
+    }
+
+    private void RemoveChunk(Vector2Int pos)
+    {
+        
     }
 
     private Asteroid CreateAsteroid()
@@ -144,6 +182,7 @@ public partial class Chunk
 {
     private Vector2 _origin;
     private System.Func<Asteroid> _createAsteroid;
+    private List<Asteroid> _asteroids = new List<Asteroid>();
 
     public Bounds Bounds { get; private set; }
     public Vector2Int Coords { get; private set; }
@@ -168,6 +207,7 @@ public partial class Chunk
             var asteroid = _createAsteroid.Invoke();
             // get random position in bounds and put the asteroid there
             asteroid.transform.position = GetAsteroidSpawnPos();
+            _asteroids.Add(asteroid);
         }
     }
 
@@ -190,5 +230,13 @@ public partial class Chunk
         } while (!posOk);
 
         return pos;
+    }
+
+    public void Clear()
+    {
+        foreach (var asteroid in _asteroids)
+        {
+            Object.Destroy(asteroid.gameObject);
+        }
     }
 }
