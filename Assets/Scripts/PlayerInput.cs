@@ -65,13 +65,15 @@ public class PlayerInput : MonoBehaviour, IInputProvider
     /// </summary>
     /// <returns></returns>
     public bool IsFiring { get; private set; }
+    public bool IsVenting { get; private set; }
 
     public UnityEvent ScrollUp { get; private set; } = new UnityEvent();
     public UnityEvent ScrollDown { get; private set; } = new UnityEvent();
 
     private void Update()
     {
-        IsFiring = Input.GetButton(GameConstants.Axis_Fire1);
+        IsFiring = Input.GetButton(GameConstants.Axis_Fire);
+        IsVenting = Input.GetButton(GameConstants.Axis_Vent);
 
         var scroll = Input.GetAxis(GameConstants.Axis_Scroll);
         if (scroll > 0f)
@@ -84,5 +86,3 @@ public class PlayerInput : MonoBehaviour, IInputProvider
         }
     }
 }
-
-public class SwitchToWeaponEvent : UnityEvent<int> { }

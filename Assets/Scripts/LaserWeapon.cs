@@ -15,17 +15,15 @@ public class LaserWeapon : Weapon
 
     private float _damageInterval;
     private Laser _laser;
-    private Ship _ship;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _damageInterval = 1f / damageFrequency;
     }
 
-    private void Start()
+    protected override void Start()
     {
-        _ship = GetComponentInParent<Ship>();
+        base.Start();
 
         _laser = laser.GetComponent<Laser>();
         _laser.SetActive(false);
@@ -34,7 +32,7 @@ public class LaserWeapon : Weapon
     protected override IEnumerator DoFire(Func<bool> getFiring)
     {
         _laser.SetActive(true);
-        _laser.SetColour(_ship.WeaponColour);
+        _laser.SetColour(Ship.WeaponColour);
 
         float elapsed = 0;
         float chunk = damage * _damageInterval;
@@ -49,7 +47,7 @@ public class LaserWeapon : Weapon
 
             // go back so the interval check will fail next time
             elapsed -= _damageInterval;
-            _heat.Add(heat);
+            Ship.Heat.Add(heat);
 
             // damage interval has passed, look for a health component and smack it
             var health = _laser.Occluder?.GetComponent<Health>();

@@ -11,21 +11,20 @@ public abstract class Weapon : MonoBehaviour
     public float heat;
     public Color colour;
 
-    protected bool _isFiring;
-    protected Heat _heat;
+    protected bool IsFiring { get; private set; }
+    protected Ship Ship { get; private set; }
 
     private bool _stop;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
-        var ship = GetComponentInParent<Ship>();
-        _heat = ship.GetComponent<Heat>();
+        Ship = GetComponentInParent<Ship>();
     }
 
     public void Fire(IInputProvider input)
     {
         // can't fire a weapon that's already firing
-        if (_isFiring)
+        if (IsFiring)
             return;
 
         StartCoroutine(DoFire(input));
@@ -33,11 +32,11 @@ public abstract class Weapon : MonoBehaviour
 
     private IEnumerator DoFire(IInputProvider input)
     {
-        _isFiring = true;
+        IsFiring = true;
 
         yield return DoFire(() => input.IsFiring && !_stop);
 
-        _isFiring = false;
+        IsFiring = false;
         _stop = false;
     }
 

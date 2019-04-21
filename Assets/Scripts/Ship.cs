@@ -10,11 +10,10 @@ public class Ship : MonoBehaviour
     public GameObject[] heatIndicators;
     private LightPanel[] _heatIndicatorPanels;
 
-    private Heat _heat;
-
     [Range(0, 1)]
     public float weaponRotationSpeed = 0.55f;
 
+    public Heat Heat { get; private set; }
     public IInputProvider InputProvider { get; private set; }
     public LightSource LightSource { get; private set; }
 
@@ -43,7 +42,7 @@ public class Ship : MonoBehaviour
         cam.target = transform;
 
         _guideWeapon = GetComponentsInChildren<WeaponController>()[0];
-        _heat = GetComponent<Heat>();
+        Heat = GetComponentInChildren<Heat>();
     }
     
     private void LateUpdate()
@@ -55,7 +54,7 @@ public class Ship : MonoBehaviour
 
         foreach (var p in _heatIndicatorPanels)
         {
-            p.Colour = _heat.IndicatorColour;
+            p.Colour = Heat.IndicatorColour;
         }
     }
 

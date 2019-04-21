@@ -12,18 +12,10 @@ public class Gun : Weapon
     public float fireRate = 2.5f;
 
     private float _fireInterval;
-    private Ship _ship;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _fireInterval = 1f / fireRate;
-    }
-
-    private void Start()
-    {
-        _ship = GetComponentInParent<Ship>();
-        _heat = _ship.GetComponent<Heat>();
     }
 
     protected override IEnumerator DoFire(Func<bool> getFiring)
@@ -32,11 +24,11 @@ public class Gun : Weapon
         {
             var b = Instantiate(bullet, emitter.position, emitter.rotation)
                 .GetComponent<Bullet>();
-            b.Colour = _ship.WeaponColour;
+            b.Colour = Ship.WeaponColour;
             // cheap hack lol
-            b.ignore = _ship;
+            b.ignore = Ship;
             b.transform.SetParent(Game.Instance.bulletParent);
-            _heat.Add(heat);
+            Ship.Heat.Add(heat);
 
             yield return new WaitForSeconds(_fireInterval);
         }
