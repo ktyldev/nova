@@ -29,6 +29,15 @@ public class Explosion : MonoBehaviour
         float elapsed = 0;
         float start = Time.time;
 
+        var screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+        if (screenPoint.x > 0 && screenPoint.x < Screen.width)
+        {
+            if (screenPoint.y > 0 && screenPoint.y < Screen.height)
+            {
+                PlaySFX();
+            }
+        }
+
         while (elapsed < duration)
         {
             yield return new WaitForEndOfFrame();
@@ -38,5 +47,17 @@ public class Explosion : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private string[] _explosionNoises = new[]
+    {
+        GameConstants.SFX_Explosion1,
+        GameConstants.SFX_Explosion2,
+        GameConstants.SFX_Explosion3
+    };
+    private void PlaySFX()
+    {
+        var noise = _explosionNoises[Random.Range(0, _explosionNoises.Length)];
+        Game.Instance.Audio.PlaySFX(noise);
     }
 }

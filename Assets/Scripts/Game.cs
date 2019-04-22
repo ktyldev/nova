@@ -23,6 +23,7 @@ public class Game : MonoBehaviour
             return _ship;
         }
     }
+    public SoundEngine Audio { get; private set; }
 
     private void Awake()
     {
@@ -30,6 +31,9 @@ public class Game : MonoBehaviour
             throw new System.Exception();
 
         Instance = this;
+
+        Audio = GameObject.Find(GameConstants.Audio)
+            .GetComponent<SoundEngine>();
     }
 
     public void GameOver()
