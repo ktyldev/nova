@@ -79,13 +79,10 @@ public class Ship : MonoBehaviour
     private Color _white = new Color(1, 1, 1, 1);
     private Color GetHullColour()
     {
-        float flickerSpeed = 10f;
-        float flickerThreshold = 0.2f;
-
-        if (_health.Normalised > flickerSpeed)
+        if (_health.Normalised > hullFlickerThreshold)
             return _health.Normalised * _white;
 
-        return Mathf.Abs(Mathf.PerlinNoise(Time.time * flickerSpeed, 0)) * _white;
+        return Mathf.Abs(Mathf.PerlinNoise(Time.time * hullFlickerSpeed, 0)) * _white;
     }
 
     // TODO: play explosion sound
