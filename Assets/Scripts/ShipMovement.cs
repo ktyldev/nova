@@ -30,13 +30,6 @@ public class ShipMovement : MonoBehaviour
         _input = _ship.InputProvider;
     }
 
-    private void LateUpdate()
-    {
-        if (IsAccelerating)
-        {
-        } 
-    }
-
     private void FixedUpdate()
     {
         Move();
