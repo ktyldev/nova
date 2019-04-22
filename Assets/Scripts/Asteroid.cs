@@ -13,6 +13,15 @@ public class Asteroid : MonoBehaviour
         if (health == null)
             return;
 
-        health.Die();
+        var ship = collision.gameObject.GetComponent<Ship>();
+        if (ship == null)
+        {
+            health.Die();
+            return;
+        }
+
+        var maxSpeed = ship.Movement.acceleration;
+        var dmg = Mathf.Sqrt(health.max / maxSpeed);
+        health.TakeDamage(dmg);
     }
 }

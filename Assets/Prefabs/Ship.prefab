@@ -9919,7 +9919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068d519bbacae0d4b809d192d732e312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 3
+  max: 10
   death:
     m_PersistentCalls:
       m_Calls:
@@ -10427,6 +10427,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: weaponData.Array.size
@@ -10462,11 +10467,6 @@ PrefabInstance:
       propertyPath: weaponData.Array.data[1].gameObject
       value: 
       objectReference: {fileID: 4927291737123381383}
-    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: m_IsActive
@@ -10620,6 +10620,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: weaponData.Array.size
@@ -10639,11 +10644,6 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponData.Array.data[0].colour.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
@@ -10782,6 +10782,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: weaponData.Array.size
@@ -10811,11 +10816,6 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponData.Array.data[1].colour.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
@@ -10964,6 +10964,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2971332752848218569, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}
       propertyPath: weaponData.Array.size
@@ -10983,11 +10988,6 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponData.Array.data[0].colour.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6494470119752920602, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2540861429201064054, guid: 73bb7fd188bb6c843b49a65567ffa52d,
         type: 3}

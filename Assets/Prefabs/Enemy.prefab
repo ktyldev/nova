@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068d519bbacae0d4b809d192d732e312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 1
+  max: 1
   death:
     m_PersistentCalls:
       m_Calls: []
@@ -66,7 +66,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 0.5
+  rotationTime: 0.5
   dashSpeed: 40
+  dashTime: 2
 --- !u!60 &7140556756416947424
 PolygonCollider2D:
   m_ObjectHideFlags: 0

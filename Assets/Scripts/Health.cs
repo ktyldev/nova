@@ -7,17 +7,17 @@ public class Health : MonoBehaviour
 {
     public class HealthUpdateEvent : UnityEvent<float> { }
 
-    public float start;
+    public float max;
     public UnityEvent<float> hit = new HealthUpdateEvent();
     public UnityEvent death = new UnityEvent();
 
     private float _current;
 
-    public float Normalised => _current / start;
+    public float Normalised => _current / max;
 
     private void Awake()
     {
-        _current = start;
+        _current = max;
     }
 
     private void Start()
@@ -35,8 +35,7 @@ public class Health : MonoBehaviour
         _current -= damage;
         if (_current <= 0)
         {
-            _current = 0;
-            death.Invoke();
+            Die();
             return;
         }
 

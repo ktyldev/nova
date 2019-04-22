@@ -1009,11 +1009,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 696879228900134729, guid: 645a27ca422109e479aab59c889cd678,
-        type: 3}
-      propertyPath: movementType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6436429605022071032, guid: 645a27ca422109e479aab59c889cd678,
         type: 3}
       propertyPath: heatIndicators.Array.size
@@ -1098,6 +1093,11 @@ PrefabInstance:
         type: 3}
       propertyPath: colour.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1955950413639943717, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: start
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 645a27ca422109e479aab59c889cd678, type: 3}
