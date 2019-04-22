@@ -11,6 +11,8 @@ public class MapGeneration : MonoBehaviour
     public ChunksInfo chunks;
     public float minScale, maxScale;
     public float centreRadius;
+    public float updateFrequency;
+    private float _tick => 1.0f / updateFrequency;
 
     [System.Serializable]
     public struct AsteroidsInfo
@@ -104,7 +106,7 @@ public class MapGeneration : MonoBehaviour
             SpawnNeighbourChunks();
             CullColdChunks();
             
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(_tick);
         }
     }
 

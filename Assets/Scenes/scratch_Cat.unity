@@ -503,10 +503,11 @@ MonoBehaviour:
     parent: {fileID: 466115129}
   chunks:
     sideLength: 20
-    maxAsteroids: 5
+    maxAsteroids: 1
   minScale: 0.5
   maxScale: 2.5
   centreRadius: 5
+  updateFrequency: 10
 --- !u!1 &529734007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,12 +1107,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1445808411}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1445808413 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6436429605022071034, guid: 645a27ca422109e479aab59c889cd678,
-    type: 3}
-  m_PrefabInstance: {fileID: 1445808411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1503781468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1215,6 @@ MonoBehaviour:
   shipExplosion: {fileID: 1222983843}
   bulletExplosion: {fileID: 1293127536}
   bulletParent: {fileID: 162799698}
-  ship: {fileID: 1445808413}
 --- !u!4 &1903553093
 Transform:
   m_ObjectHideFlags: 0
