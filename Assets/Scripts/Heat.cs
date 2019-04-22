@@ -45,6 +45,7 @@ public class Heat : MonoBehaviour
 
     private IEnumerator Vent()
     {
+        Game.Instance.Audio.PlaySFX(GameConstants.SFX_HeatVent, () => !IsVenting, false);
         // turn on particle systems
         foreach (var ps in _particleSystems)
         {
