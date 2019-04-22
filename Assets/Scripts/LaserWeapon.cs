@@ -16,6 +16,8 @@ public class LaserWeapon : Weapon
     private float _damageInterval;
     private Laser _laser;
 
+    protected override string SFXName => GameConstants.SFX_LomgLaser;
+
     private void Awake()
     {
         _damageInterval = 1f / damageFrequency;
@@ -29,6 +31,8 @@ public class LaserWeapon : Weapon
         _laser.SetActive(false);
     }
 
+    protected override bool CancelSFX() => !IsFiring;
+
     protected override IEnumerator DoFire(Func<bool> getFiring)
     {
         _laser.SetActive(true);
@@ -37,8 +41,15 @@ public class LaserWeapon : Weapon
         float elapsed = 0;
         float chunk = damage * _damageInterval;
 
+        int cycles = 0;
         while (getFiring())
         {
+            cycles++;
+            if (cycles % 20 == 0)
+            {
+                PlaySFX();
+            }
+
             yield return new WaitForEndOfFrame();
 
             elapsed += Time.deltaTime;

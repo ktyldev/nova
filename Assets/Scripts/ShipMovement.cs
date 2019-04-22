@@ -34,7 +34,6 @@ public class ShipMovement : MonoBehaviour
     {
         Move();
         Rotate();
-        print(_rb.velocity.magnitude);
     }
 
     private void Move()

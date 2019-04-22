@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Gun : Weapon
 {
@@ -12,6 +13,8 @@ public class Gun : Weapon
     public float fireRate = 2.5f;
 
     private float _fireInterval;
+
+    protected override string SFXName => GameConstants.SFX_PewPewNoise;
 
     private void Awake()
     {
@@ -29,6 +32,8 @@ public class Gun : Weapon
             b.ignore = Ship;
             b.transform.SetParent(Game.Instance.bulletParent);
             Ship.Heat.Add(heat);
+
+            PlaySFX();
 
             yield return new WaitForSeconds(_fireInterval);
         }

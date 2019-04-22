@@ -65,15 +65,37 @@ public class SoundEngine : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayAndDelete(GameObject sfxObj)
+    public IEnumerator PlayAndDelete(GameObject sfxObj) =>
+        PlayAndDelete(sfxObj, () => false);
+
+    public IEnumerator PlayAndDelete(GameObject sfxObj, System.Func<bool> deleteNow)
     {
         AudioSource audioSource = sfxObj.GetComponent<AudioSource>();
         audioSource.Play();
-        yield return new WaitForSecondsRealtime(audioSource.clip.length * (1f + _sfxPitchVariance));
+
+        float elapsed = 0f;
+        float clipLength = audioSource.clip.length * (1f + _sfxPitchVariance);
+        while (true)
+        {
+            if (deleteNow())
+                break;
+
+            if (elapsed >= clipLength)
+                break;
+
+            elapsed += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        audioSource.Stop();
         Destroy(sfxObj);
     }
 
-    public void PlaySFX(string clipname, bool varyPitch = true)
+    public void PlaySFX(string clipname, bool varyPitch = true) =>
+        PlaySFX(clipname, () => false, varyPitch);
+
+    public void PlaySFX(string clipname, System.Func<bool> deleteFunc, bool varyPitch = true)
     {
         AudioClip clip = soundEffects
             .Where((AudioClip a) => a.name == clipname)
@@ -100,7 +122,7 @@ public class SoundEngine : MonoBehaviour
         audioSource.volume = _sfxVolume;
         audioSource.pitch = pitchMultiplier;
 
-        StartCoroutine(PlayAndDelete(audioObj));
+        StartCoroutine(PlayAndDelete(audioObj, deleteFunc));
     }
 
     public IEnumerator FadeMusicIn(AudioSource track)

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    private static WeaponController _audioWeapon;
+
     public GameObject targetingLaser;
     [Serializable]
     public struct WeaponMeta
@@ -10,7 +12,6 @@ public class WeaponController : MonoBehaviour
         [SerializeField]
         private GameObject gameObject;
         public Color colour;
-        public GameObject[] panels;
 
         private Weapon _weapon;
 
@@ -38,6 +39,11 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
+        if (_audioWeapon != null)
+        {
+            _audioWeapon = this;
+        }
+
         _ship = GetComponentInParent<Ship>();
         _input = (PlayerInput)_ship.InputProvider;
 

@@ -11,6 +11,7 @@ public abstract class Weapon : MonoBehaviour
     public float heat;
     public Color colour;
 
+    protected abstract string SFXName { get;}
     protected bool IsFiring { get; private set; }
     protected Ship Ship { get; private set; }
 
@@ -41,6 +42,12 @@ public abstract class Weapon : MonoBehaviour
     }
 
     protected abstract IEnumerator DoFire(Func<bool> getFiring);
+    protected virtual bool CancelSFX() => false;
+    
+    public void PlaySFX()
+    {
+        Game.Instance.Audio.PlaySFX(SFXName, CancelSFX, false);
+    }
 
     public void Stop()
     {
