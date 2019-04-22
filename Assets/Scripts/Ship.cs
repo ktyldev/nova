@@ -61,9 +61,7 @@ public class Ship : MonoBehaviour
     // TODO: play explosion sound
     public void Die()
     {
-        Explosion.New(Game.Instance.shipExplosion, transform.position);
-        Destroy(gameObject);
-
-        Game.Instance.Restart(3);
+        //Explosion.New(Game.Instance.shipExplosion, transform.position);
+        Game.Instance.GameOver();
     }
 }

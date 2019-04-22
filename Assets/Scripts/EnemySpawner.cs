@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _source = Game.Instance.ship.GetComponentInChildren<LightSource>();
+        _source = Game.Instance.Ship.GetComponentInChildren<LightSource>();
 
         StartCoroutine(SpawnEnemies());
     }

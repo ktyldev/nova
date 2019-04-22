@@ -10,7 +10,6 @@ public class Game : MonoBehaviour
     public GameObject shipExplosion;
     public GameObject bulletExplosion;
     public Transform bulletParent;
-    public GameObject ship;
     private Ship _ship;
     public Ship Ship
     {
@@ -18,7 +17,7 @@ public class Game : MonoBehaviour
         {
             if (_ship == null)
             {
-                _ship = ship.GetComponent<Ship>();
+                _ship = GetComponentInChildren<Ship>();
             }
 
             return _ship;
@@ -33,13 +32,21 @@ public class Game : MonoBehaviour
         Instance = this;
     }
 
-    public void Restart(float delay = 0) => Instance.StartCoroutine(RestartScene(delay));
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        Restart(3f);
+    }
+
+    private void Restart(float delay = 0) => Instance.StartCoroutine(RestartScene(delay));
     private IEnumerator RestartScene(float delay)
     {
         var currentScene = SceneManager.GetActiveScene();
 
         yield return new WaitForSecondsRealtime(delay);
 
+        Instance = null;
         SceneManager.LoadScene(currentScene.buildIndex);
+        Time.timeScale = 1.0f;
     }
 }
