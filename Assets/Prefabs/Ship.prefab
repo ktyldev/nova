@@ -9809,7 +9809,6 @@ GameObject:
   - component: {fileID: 1955950413639943717}
   - component: {fileID: 4558992518160695584}
   - component: {fileID: 4633084882052568521}
-  - component: {fileID: 1651835067514024824}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -9886,6 +9885,7 @@ MonoBehaviour:
   - {fileID: 6406004495111738032}
   - {fileID: 4930859148276837693}
   weaponRotationSpeed: 0.55
+  heatPerSecond: 1
 --- !u!50 &6436429605022071033
 Rigidbody2D:
   serializedVersion: 4
@@ -10097,23 +10097,6 @@ PolygonCollider2D:
     - - {x: 0.71, y: 0.03}
       - {x: 0.7, y: 0.03}
       - {x: 0.71, y: 0}
---- !u!114 &1651835067514024824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6436429605022071034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b107e19ffe0a52847908b734bfbb5e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max: 100
-  ventSpeed: 0
-  dangerZone: 0
-  pulseRate: 0
-  particleSystems: []
 --- !u!1 &6436429605890728622
 GameObject:
   m_ObjectHideFlags: 0
@@ -10364,9 +10347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b107e19ffe0a52847908b734bfbb5e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killPlayer: 1
   max: 100
   ventSpeed: 10
-  dangerZone: 0.9
+  dangerZone: 0.8
   pulseRate: 10
   particleSystems:
   - {fileID: 3755544006418909246}
@@ -10880,6 +10864,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73bb7fd188bb6c843b49a65567ffa52d, type: 3}
+--- !u!1 &6436429604571771101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 122856930898607762, guid: 73bb7fd188bb6c843b49a65567ffa52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6406004495337721423}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4968288942468406854 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2023342590597632009, guid: 73bb7fd188bb6c843b49a65567ffa52d,
@@ -10889,12 +10879,6 @@ GameObject:
 --- !u!4 &6436429604571771098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 122856930898607765, guid: 73bb7fd188bb6c843b49a65567ffa52d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6406004495337721423}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6436429604571771101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 122856930898607762, guid: 73bb7fd188bb6c843b49a65567ffa52d,
     type: 3}
   m_PrefabInstance: {fileID: 6406004495337721423}
   m_PrefabAsset: {fileID: 0}
