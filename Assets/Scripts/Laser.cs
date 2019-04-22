@@ -82,6 +82,14 @@ public class Laser : MonoBehaviour
 
         var end = start + dir * l;
         _line.SetPositions(new[] { start, end });
+
+        //var start2 = Camera.main.WorldToScreenPoint(start);
+        //var end2 = Camera.main.WorldToScreenPoint(end);
+        //start2.y = Screen.height - start2.y;
+        //end2.y = Screen.height - end2.y;
+
+        //_line.material.SetVector("_Start", Camera.main.WorldToScreenPoint(start2));
+        //_line.material.SetVector("_End", Camera.main.WorldToScreenPoint(end2));
     }
 
     public void SetActive(bool active)
@@ -91,6 +99,7 @@ public class Laser : MonoBehaviour
 
     public void SetColour(Color colour)
     {
+        _line.material.SetColor("_Colour", colour);
         _line.startColor = colour;
         _line.endColor = colour;
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Heat : MonoBehaviour
 {
+    public bool killPlayer;
     public float max;
     public float ventSpeed; // units to vent per second
     [Range(0, 1)]
@@ -83,7 +84,10 @@ public class Heat : MonoBehaviour
         if (_current >= max)
         {
             _current = max;
-            _ship.Die();
+            if (killPlayer)
+            {
+                _ship.Die();
+            }
             return;
         }
     }
