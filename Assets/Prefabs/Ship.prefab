@@ -9864,6 +9864,12 @@ MonoBehaviour:
   - {fileID: 968181412605498162}
   heatIndicators:
   - {fileID: 8365902586369503316}
+  hullIndicators:
+  - {fileID: 3354913884052032034}
+  - {fileID: 7447492349504027410}
+  - {fileID: 6436429605022071034}
+  hullFlickerSpeed: 10
+  hullFlickerThreshold: 0.2
   weaponRotationSpeed: 0.55
 --- !u!114 &6436429605022071029
 MonoBehaviour:
