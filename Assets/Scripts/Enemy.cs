@@ -16,12 +16,16 @@ public class Enemy : MonoBehaviour
 
     private bool _hidden = true;
 
+    private static List<Enemy> _all = new List<Enemy>();
+    public static IEnumerable<Enemy> All => _all;
+
     void Awake()
     {
         _health = GetComponent<Health>();
         _health.death.AddListener(Explode);
 
         _rb = GetComponent<Rigidbody2D>();
+        _all.Add(this);
     }
 
     private void Start()
@@ -91,5 +95,10 @@ public class Enemy : MonoBehaviour
     {
         Explosion.New(Game.Instance.shipExplosion, transform.position);
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        _all.Remove(this);
     }
 }

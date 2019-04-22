@@ -95,6 +95,16 @@ public class MapGeneration : MonoBehaviour
         }
     }
 
+    public void ClearChunks()
+    {
+        foreach (var c in _chunks.Values)
+        {
+            c.Clear();
+        }
+
+        _chunks.Clear();
+    }
+
 
     private IEnumerator UpdateChunks()
     {
@@ -173,10 +183,16 @@ public partial class Chunk
 
     private static int _sideLength => MapGeneration.Instance.chunks.sideLength;
     private static int _maxAsteroids => MapGeneration.Instance.chunks.maxAsteroids;
+
+    private static List<Chunk> _activeChunks = new List<Chunk>();
+    private static List<Asteroid> _activeAsteroids = new List<Asteroid>();
+    public static IEnumerable<Asteroid> ActiveAsteroids => _activeAsteroids;
+
     public static Vector2Int[] GetNeighbourPositions(Vector2Int coords) =>
         Directions.Select(d => d + coords).ToArray();
     public static Vector2 GetChunkWorldPosition(Vector2Int pos) =>
         pos * _sideLength;
+
 }
 
 // non-static
@@ -185,6 +201,7 @@ public partial class Chunk
     private Vector2 _origin;
     private System.Func<Asteroid> _createAsteroid;
     private List<Asteroid> _asteroids = new List<Asteroid>();
+    private IEnumerable<Asteroid> Asteroids => _asteroids;
 
     public Bounds Bounds { get; private set; }
     public Vector2Int Coords { get; private set; }
@@ -199,6 +216,8 @@ public partial class Chunk
 
         var worldPosition = Chunk.GetChunkWorldPosition(Coords);
         Bounds = new Bounds(worldPosition, new Vector2(1, 1) * _sideLength);
+
+        _activeChunks.Add(this);
     }
 
     public void Generate()
@@ -211,6 +230,8 @@ public partial class Chunk
             asteroid.transform.position = GetAsteroidSpawnPos();
             _asteroids.Add(asteroid);
         }
+
+        Chunk._activeAsteroids.AddRange(_asteroids);
     }
 
     private Vector2 GetAsteroidSpawnPos()
@@ -238,7 +259,10 @@ public partial class Chunk
     {
         foreach (var asteroid in _asteroids)
         {
+            Chunk._activeAsteroids.Remove(asteroid);
             Object.Destroy(asteroid.gameObject);
         }
+
+        _activeChunks.Remove(this);
     }
 }

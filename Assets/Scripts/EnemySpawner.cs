@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
-    public float spawnDelay = 2;
+    public int maxEnemies; 
+    public float spawnRate = 2;
+    public float waveMultiplier;
+    public int waveLength = 10;
 
+    private float _spawnDelay => 1.0f / spawnRate;
+    private int _spawned = 0;
+    private int _current = 0;
     private LightSource _source;
 
-    // Start is called before the first frame update
     void Start()
     {
         _source = Game.Instance.Ship.GetComponentInChildren<LightSource>();
@@ -17,27 +23,28 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnEnemies());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private IEnumerator SpawnEnemies()
     {
         // magic number idgaf lul
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
+
         while (true)
         {
+            yield return new WaitUntil(() => Enemy.All.Count() < maxEnemies);
+
             var pos = GetSpawnLocation();
             if (pos.HasValue)
             {
                 Instantiate(enemy, pos.Value, Quaternion.identity, transform);
-                //yield return new WaitUntil(() => false);
-                yield return new WaitForSeconds(spawnDelay);
+
+                _spawned++;
+                if (_spawned % waveLength == 0)
+                {
+                    spawnRate *= waveMultiplier;
+                }
             }
 
-            yield return new WaitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(_spawnDelay);
         }
     }
 
@@ -46,25 +53,32 @@ public class EnemySpawner : MonoBehaviour
         if (_source == null)
             return null;
 
-        var bounds = new Bounds(_source.Position, Vector3.one * _source.range);
-        var lightMesh = LightEngine.Instance[_source];
-        if (lightMesh == null)
+        var asteroid = GetNearbyAsteroid();
+        if (asteroid == null)
             return null;
 
-        Vector2 point;
-        int tries = 10;
-        for (int i = 0; i < tries; i++)
-        {
-            point = new Vector2
-            {
-                x = Random.Range(bounds.center.x - bounds.max.x, bounds.center.x + bounds.max.x),
-                y = Random.Range(bounds.center.y - bounds.max.y, bounds.center.y + bounds.max.y)
-            };
+        var astPos = asteroid.transform.position;
+        var srcPos = _source.transform.position;
 
-            if (lightMesh.ContainsPoint(point))
-                return point;
-        }
+        var dir = (astPos - srcPos).normalized;
+        var spawnPos = astPos + dir * Asteroid.SafeDistance;
 
-        return null;
+        return spawnPos;
+    }
+
+    private Asteroid GetNearbyAsteroid()
+    {
+        if (!Chunk.ActiveAsteroids.Any())
+            return null;
+
+        var asteroids = Chunk.ActiveAsteroids
+            .Where(a => Vector2.Distance(
+                Game.Instance.Ship.transform.position, 
+                a.transform.position) < _source.range)
+            .ToArray();
+        if (!asteroids.Any())
+            return null;
+
+        return asteroids[Random.Range(0, asteroids.Length)];
     }
 }

@@ -252,7 +252,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 7140556756416947429, guid: a8b66e3562406824f92e6133e17a57cb, type: 3}
-  spawnDelay: 2
+  maxEnemies: 10
+  spawnRate: 1
+  waveMultiplier: 1.15
+  waveLength: 10
 --- !u!1 &277443604
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +518,7 @@ MonoBehaviour:
     parent: {fileID: 466115129}
   chunks:
     sideLength: 20
-    maxAsteroids: 1
+    maxAsteroids: 3
   minScale: 0.5
   maxScale: 2.5
   centreRadius: 5

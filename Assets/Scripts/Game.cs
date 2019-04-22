@@ -46,6 +46,7 @@ public class Game : MonoBehaviour
         yield return new WaitForSecondsRealtime(delay);
 
         Instance = null;
+        MapGeneration.Instance.ClearChunks();
         SceneManager.LoadScene(currentScene.buildIndex);
         Time.timeScale = 1.0f;
     }
