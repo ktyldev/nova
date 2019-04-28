@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
 
     public GameObject shipExplosion;
     public GameObject bulletExplosion;
+    public GameObject gameOverUI;
     public Transform bulletParent;
     private Ship _ship;
     public Ship Ship
@@ -38,7 +39,13 @@ public class Game : MonoBehaviour
 
     public void GameOver()
     {
+        gameOverUI.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    public void Restart()
+    {
+        gameOverUI.SetActive(false);
         Restart(3f);
     }
 

@@ -34,4 +34,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GamePaused = true;
     }
+
+    public void ResetTime()
+    {
+        Time.timeScale = 1f;
+    }
 }
