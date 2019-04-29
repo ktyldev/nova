@@ -50,10 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetingLaser: {fileID: 2023342590597632009}
   weaponData:
-  - gameObject: {fileID: 7099160491220438824}
-    colour: {r: 1, g: 0, b: 0, a: 1}
   - gameObject: {fileID: 8998100916790248183}
-    colour: {r: 0, g: 1, b: 0, a: 1}
+    colour: {r: 0, g: 1, b: 0.47390532, a: 1}
 --- !u!1 &2023342590597632009
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &39681657457834480
 Transform:
   m_ObjectHideFlags: 0

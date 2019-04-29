@@ -38,12 +38,19 @@ public class Explosion : MonoBehaviour
             }
         }
 
+        var sprite = GetComponent<SpriteRenderer>();
         while (elapsed < duration)
         {
             yield return new WaitForEndOfFrame();
 
             elapsed = Time.time - start;
             transform.localScale = Vector3.Lerp(transform.localScale, _endScale, elapsed / duration);
+            // i can see why cinder make an extension method lmao
+            sprite.color = new Color(
+                sprite.color.r, 
+                sprite.color.g, 
+                sprite.color.b, 
+                Mathf.Lerp(1, 0, elapsed / duration));
         }
 
         Destroy(gameObject);

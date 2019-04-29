@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public float rotationTime = 0.5f;
     public float dashSpeed;
     public float dashTime = 2.0f;
+    public float damage = 1;
 
     private Health _health;
     private Transform _target;
@@ -41,21 +42,29 @@ public class Enemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var ship = collision.gameObject.GetComponent<Ship>();
-        if (ship != null)
-        {
-            ship.Die();
-        }
+        if (ship == null)
+            return;
+
+        var health = ship.GetComponent<Health>();
+        health.TakeDamage(damage);
+        Explode();
     }
 
     private IEnumerator WaitInShadow()
     {
-        while (_hidden)
+        while (_hidden && Game.IsRunning)
         {
-            _hidden = LightEngine.Instance[_source].ContainsPoint(transform.position); 
+            var player = Game.Instance.Ship;
+            if (Vector3.Distance(transform.position, player.transform.position) > 50)
+            {
+                Destroy(gameObject);
+            }
+
+            _hidden = LightEngine.Instance[_source].ContainsPoint(transform.position);
             yield return new WaitForSeconds(0.5f);
         }
 
-        yield return Dash();        
+        yield return Dash();
     }
 
     private IEnumerator Dash()
@@ -70,8 +79,8 @@ public class Enemy : MonoBehaviour
         {
             elapsed = (Time.time - start) / rotationTime;
             transform.rotation = Quaternion.Lerp(
-                transform.rotation, 
-                targetRotation, 
+                transform.rotation,
+                targetRotation,
                 elapsed);
 
             yield return new WaitForEndOfFrame();
