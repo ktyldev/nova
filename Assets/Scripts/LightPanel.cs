@@ -7,10 +7,13 @@ public class LightPanel : MonoBehaviour
 {
     private SpriteRenderer _sprite;
 
-    public Color Colour { set { _sprite.color = value; } }
+    public Color Colour { set { SetColour(value); } }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
     }
+
+    protected virtual void SetColour(Color colour) =>
+        _sprite.color = colour;
 }

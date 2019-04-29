@@ -12,9 +12,11 @@ public class LaserWeapon : Weapon
     public float damageFrequency = 5f;
 
     public GameObject laser;
+    public GameObject glow;
 
     private float _damageInterval;
     private Laser _laser;
+    private SpriteRenderer _glow;
 
     protected override string SFXName => GameConstants.SFX_LomgLaser;
 
@@ -27,6 +29,8 @@ public class LaserWeapon : Weapon
     {
         base.Start();
 
+        _glow = glow.GetComponent<SpriteRenderer>();
+        _glow.color = Color.clear;
         _laser = laser.GetComponent<Laser>();
         _laser.SetActive(false);
     }
@@ -37,18 +41,19 @@ public class LaserWeapon : Weapon
     {
         _laser.SetActive(true);
         _laser.SetColour(Ship.WeaponColour);
+        _glow.color = Ship.WeaponColour;
 
         float elapsed = 0;
         float chunk = damage * _damageInterval;
 
-        int cycles = 0;
+        //int cycles = 0;
         while (getFiring())
         {
-            cycles++;
-            if (cycles % 20 == 0)
-            {
-                PlaySFX();
-            }
+            //if (cycles % 20 == 0)
+            //{
+            PlaySFX(true);
+            //}
+            //cycles++;
 
             yield return new WaitForEndOfFrame();
 
@@ -69,5 +74,6 @@ public class LaserWeapon : Weapon
         }
 
         _laser.SetActive(false);
+        _glow.color = Color.clear;
     }
 }

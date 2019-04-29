@@ -25,7 +25,7 @@ public class GameConstants
     public const string SFX_Explosion3 = "Explosion3";
     public const string SFX_HeatVent = "HeatVent4";
     public const string SFX_PewPewNoise = "Cartoon_Laser_1";
-    public const string SFX_LomgLaser = "Laser3";
+    public const string SFX_LomgLaser = "Nova_LaserBeam_Sound_1";
     public const string SFX_HeatAlarm = "ShipAlarm4";
     public const string SFX_HullAlarm = "ShipAlarm1";
 }

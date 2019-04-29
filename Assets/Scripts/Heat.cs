@@ -18,6 +18,7 @@ public class Heat : MonoBehaviour
     private float _current = 0;
     private ParticleSystem[] _particleSystems;
 
+    public bool DangerZone => Normalised > dangerZone;
     public float Normalised => _current / max;
     public Color IndicatorColour => Normalised > dangerZone 
         ? PulseColourIndicator() 

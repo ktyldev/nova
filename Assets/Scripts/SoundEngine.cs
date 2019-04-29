@@ -68,9 +68,15 @@ public class SoundEngine : MonoBehaviour
     public IEnumerator PlayAndDelete(GameObject sfxObj) =>
         PlayAndDelete(sfxObj, () => false);
 
-    public IEnumerator PlayAndDelete(GameObject sfxObj, System.Func<bool> deleteNow)
+    public IEnumerator PlayAndDelete(GameObject sfxObj, System.Func<bool> deleteNow, bool loop = false)
     {
         AudioSource audioSource = sfxObj.GetComponent<AudioSource>();
+        audioSource.loop = loop;
+        if (audioSource.isPlaying)
+        {
+            yield break;
+        }
+
         audioSource.Play();
 
         float elapsed = 0f;
@@ -80,8 +86,10 @@ public class SoundEngine : MonoBehaviour
             if (deleteNow())
                 break;
 
-            if (elapsed >= clipLength)
+            if (!loop && elapsed >= clipLength)
+            {
                 break;
+            }
 
             elapsed += Time.deltaTime;
 
@@ -95,11 +103,17 @@ public class SoundEngine : MonoBehaviour
     public void PlaySFX(string clipname, bool varyPitch = true) =>
         PlaySFX(clipname, () => false, varyPitch);
 
-    public void PlaySFX(string clipname, System.Func<bool> deleteFunc, bool varyPitch = true)
+    public void PlaySFX(string clipname, System.Func<bool> deleteFunc, bool varyPitch = true, bool loop = false)
     {
         AudioClip clip = soundEffects
             .Where((AudioClip a) => a.name == clipname)
             .First();
+
+        var child = transform.Find("audio_" + clipname);
+        if (child != null)
+        {
+            return;
+        }
 
         if (clip == null)
         {
@@ -122,7 +136,7 @@ public class SoundEngine : MonoBehaviour
         audioSource.volume = _sfxVolume;
         audioSource.pitch = pitchMultiplier;
 
-        StartCoroutine(PlayAndDelete(audioObj, deleteFunc));
+        StartCoroutine(PlayAndDelete(audioObj, deleteFunc, loop));
     }
 
     public IEnumerator FadeMusicIn(AudioSource track)

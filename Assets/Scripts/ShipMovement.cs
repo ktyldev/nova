@@ -41,7 +41,11 @@ public class ShipMovement : MonoBehaviour
         if (_ship.Heat.IsVenting)
             return;
 
+        if (_input.AccelerationDir.magnitude > 0)
+        {
             _ship.Heat.Add(heatPerSecond * Time.fixedDeltaTime);
+        }
+
         _rb.AddForce(_input.AccelerationDir * acceleration);
     }
 

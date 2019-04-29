@@ -36,14 +36,10 @@ public class WeaponController : MonoBehaviour
 
     public Color Colour => _activeWeapon.colour;
     private WeaponMeta _activeWeapon => weaponData[_index];
+    public bool ShouldPlaySFX { get; set; } = false;
 
     private void Start()
     {
-        if (_audioWeapon != null)
-        {
-            _audioWeapon = this;
-        }
-
         _ship = GetComponentInParent<Ship>();
         _input = (PlayerInput)_ship.InputProvider;
 
@@ -128,6 +124,7 @@ public class WeaponController : MonoBehaviour
 
         if (f) return;
 
+        _activeWeapon.weapon.ShouldPlaySFX = ShouldPlaySFX;
         _activeWeapon.weapon.Fire(_input);
     }
 

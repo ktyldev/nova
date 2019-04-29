@@ -490,12 +490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 51ed5f90104f3e54887b822edcc101f3, type: 2}
---- !u!1 &318471967 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2610150693365828792, guid: 645a27ca422109e479aab59c889cd678,
-    type: 3}
-  m_PrefabInstance: {fileID: 1445808411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &377765361 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6436429605022071034, guid: 645a27ca422109e479aab59c889cd678,
@@ -1546,6 +1540,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1903553093}
     m_Modifications:
+    - target: {fileID: 2144931012652023433, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: m_Name
+      value: CentralFill
+      objectReference: {fileID: 0}
     - target: {fileID: 6436429605022071034, guid: 645a27ca422109e479aab59c889cd678,
         type: 3}
       propertyPath: m_Name
@@ -1706,16 +1705,21 @@ PrefabInstance:
       propertyPath: acceleration
       value: 175
       objectReference: {fileID: 0}
-    - target: {fileID: 1261755305244675001, guid: 645a27ca422109e479aab59c889cd678,
+    - target: {fileID: 5551814008320762468, guid: 645a27ca422109e479aab59c889cd678,
         type: 3}
-      propertyPath: weaponData.Array.size
-      value: 1
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 1261755305244675001, guid: 645a27ca422109e479aab59c889cd678,
+    - target: {fileID: 5505427677729888896, guid: 645a27ca422109e479aab59c889cd678,
         type: 3}
-      propertyPath: weaponData.Array.data[0].gameObject
-      value: 
-      objectReference: {fileID: 318471967}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505427677729888896, guid: 645a27ca422109e479aab59c889cd678,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 645a27ca422109e479aab59c889cd678, type: 3}
 --- !u!4 &1445808412 stripped
@@ -2320,6 +2324,11 @@ PrefabInstance:
     - target: {fileID: 9187170174769452651, guid: 93e53ac5a97dcff40a51518756c52ea3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9187170174769452650, guid: 93e53ac5a97dcff40a51518756c52ea3,
+        type: 3}
+      propertyPath: _musicVolume
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
