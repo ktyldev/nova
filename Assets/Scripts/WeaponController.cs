@@ -114,7 +114,14 @@ public class WeaponController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_input.IsVenting) return;
+        if (Game.Instance == null)
+            return;
+
+        if (Game.Instance.IsGameOver || Game.Instance.IsPaused)
+            return;
+
+        if (_input.IsVenting)
+            return;
 
         bool f = !_input.IsFiring;
         _targeting.SetActive(f);

@@ -45,6 +45,10 @@ public class MapGeneration : MonoBehaviour
 
     private void Start()
     {
+        //Game.Instance.OnGameOver.AddListener(() =>
+        //{
+        //    Instance = null;
+        //});
 
         //GenerateAsteroids();
         StartCoroutine(UpdateChunks());
@@ -97,12 +101,17 @@ public class MapGeneration : MonoBehaviour
 
     public void ClearChunks()
     {
+        Chunk.ClearActiveAsteroids();
         foreach (var c in _chunks.Values)
         {
             c.Clear();
         }
 
         _chunks.Clear();
+        foreach (var a in _spawned)
+        {
+            GameObject.Destroy(a);
+        }
     }
 
 
@@ -111,7 +120,9 @@ public class MapGeneration : MonoBehaviour
         // spawn first chunk
         SpawnChunk(Vector2Int.zero);
 
-        while (true)
+        bool stop = false;
+        Game.Instance.OnGameOver.AddListener(() => stop = true);
+        while (!stop)
         {
             SpawnNeighbourChunks();
             CullColdChunks();
@@ -187,6 +198,8 @@ public partial class Chunk
     private static List<Chunk> _activeChunks = new List<Chunk>();
     private static List<Asteroid> _activeAsteroids = new List<Asteroid>();
     public static IEnumerable<Asteroid> ActiveAsteroids => _activeAsteroids;
+
+    public static void ClearActiveAsteroids() => _activeAsteroids.Clear();
 
     public static Vector2Int[] GetNeighbourPositions(Vector2Int coords) =>
         Directions.Select(d => d + coords).ToArray();

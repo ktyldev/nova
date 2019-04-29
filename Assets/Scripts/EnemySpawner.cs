@@ -25,12 +25,11 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
-        // magic number idgaf lul
-        //yield return new WaitForSeconds(1);
-
         while (true)
         {
             yield return new WaitUntil(() => Enemy.All.Count() < maxEnemies);
+            if (!Game.IsRunning)
+                break;
 
             var pos = GetSpawnLocation();
             if (pos.HasValue)
@@ -72,6 +71,7 @@ public class EnemySpawner : MonoBehaviour
             return null;
 
         var asteroids = Chunk.ActiveAsteroids
+            .Where(a => a != null)
             .Where(a => Vector2.Distance(
                 Game.Instance.Ship.transform.position, 
                 a.transform.position) < _source.range)
