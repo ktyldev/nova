@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     public GameObject bulletExplosion;
     public GameObject gameOverUI;
     public Transform bulletParent;
+    public GameObject healthPickup;
     private Ship _ship;
     public Ship Ship
     {

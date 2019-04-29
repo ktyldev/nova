@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public float dashSpeed;
     public float dashTime = 2.0f;
     public float damage = 1;
+    [Range(0, 1)]
+    public float pickupDropChance = 0.1f;
 
     private Health _health;
     private Transform _target;
@@ -103,6 +105,12 @@ public class Enemy : MonoBehaviour
     private void Explode()
     {
         Explosion.New(Game.Instance.shipExplosion, transform.position);
+
+        if (Random.Range(0.0f, 1.0f) < pickupDropChance)
+        {
+            Instantiate(Game.Instance.healthPickup, transform.position, transform.rotation);
+        }
+
         Destroy(gameObject);
     }
 

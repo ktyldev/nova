@@ -38,6 +38,7 @@ public class Health : MonoBehaviour
             Die();
             return;
         }
+        _current = Mathf.Min(_current, max);
 
         hit.Invoke(Normalised);
     }

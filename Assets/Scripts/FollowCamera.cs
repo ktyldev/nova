@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class FollowCamera : MonoBehaviour
 {
     public Transform target;
@@ -7,15 +8,16 @@ public class FollowCamera : MonoBehaviour
     public float smoothing;
 
     private float _z;
+    private Camera _camera;
 
     private void Awake()
     {
         _z = transform.position.z;
+        _camera = GetComponent<Camera>();
     }
 
     private void FixedUpdate()
     {
-        // TODO: follow local player
         if (target == null)
             return;
 

@@ -149,6 +149,7 @@ MonoBehaviour:
   dashSpeed: 40
   dashTime: 2
   damage: 1
+  pickupDropChance: 0.1
 --- !u!60 &7140556756416947424
 PolygonCollider2D:
   m_ObjectHideFlags: 0

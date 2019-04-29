@@ -50,9 +50,6 @@ public class Ship : MonoBehaviour
 
     private void Start()
     {
-        var cam = Camera.main.GetComponent<FollowCamera>();
-        cam.target = transform;
-
         var weapons = GetComponentsInChildren<WeaponController>();
         _guideWeapon = weapons[0];
         _guideWeapon.ShouldPlaySFX = true;
