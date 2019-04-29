@@ -51,7 +51,7 @@ public class LaserWeapon : Weapon
         {
             //if (cycles % 20 == 0)
             //{
-            PlaySFX(true);
+            PlaySFX(true, true);
             //}
             //cycles++;
 

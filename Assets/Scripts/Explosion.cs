@@ -65,6 +65,6 @@ public class Explosion : MonoBehaviour
     private void PlaySFX()
     {
         var noise = _explosionNoises[Random.Range(0, _explosionNoises.Length)];
-        Game.Instance.Audio.PlaySFX(noise);
+        Game.Instance.Audio.PlaySFX(noise, () => false, true, false, false, 0.1f);
     }
 }

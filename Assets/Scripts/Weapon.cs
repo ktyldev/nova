@@ -44,13 +44,13 @@ public abstract class Weapon : MonoBehaviour
     protected abstract IEnumerator DoFire(Func<bool> getFiring);
     protected virtual bool CancelSFX() => false;
     
-    public void PlaySFX(bool loop = false)
+    public void PlaySFX(bool loop = false, bool singular = true)
     {
         //Game.Instance.Audio.
         if (!ShouldPlaySFX)
             return;
 
-        Game.Instance.Audio.PlaySFX(SFXName, CancelSFX, false, loop);
+        Game.Instance.Audio.PlaySFX(SFXName, CancelSFX, false, loop, singular);
     }
 
     public bool ShouldPlaySFX { get; set; }

@@ -68,11 +68,11 @@ public class SoundEngine : MonoBehaviour
     public IEnumerator PlayAndDelete(GameObject sfxObj) =>
         PlayAndDelete(sfxObj, () => false);
 
-    public IEnumerator PlayAndDelete(GameObject sfxObj, System.Func<bool> deleteNow, bool loop = false)
+    public IEnumerator PlayAndDelete(GameObject sfxObj, System.Func<bool> deleteNow, bool loop = false, bool singular = false)
     {
         AudioSource audioSource = sfxObj.GetComponent<AudioSource>();
         audioSource.loop = loop;
-        if (audioSource.isPlaying)
+        if (singular && audioSource.isPlaying)
         {
             yield break;
         }
@@ -103,16 +103,24 @@ public class SoundEngine : MonoBehaviour
     public void PlaySFX(string clipname, bool varyPitch = true) =>
         PlaySFX(clipname, () => false, varyPitch);
 
-    public void PlaySFX(string clipname, System.Func<bool> deleteFunc, bool varyPitch = true, bool loop = false)
+    public void PlaySFX(string clipname, System.Func<bool> deleteFunc, bool varyPitch = true, bool loop = false, bool singular = false, float vol = 1.0f)
     {
+        if (vol > 1f || vol < 0f)
+        {
+            throw new System.ArgumentException();
+        }
+
         AudioClip clip = soundEffects
             .Where((AudioClip a) => a.name == clipname)
             .First();
 
-        var child = transform.Find("audio_" + clipname);
-        if (child != null)
+        if (singular)
         {
-            return;
+            var child = transform.Find("audio_" + clipname);
+            if (child != null)
+            {
+                return;
+            }
         }
 
         if (clip == null)
@@ -133,10 +141,10 @@ public class SoundEngine : MonoBehaviour
             : 1f;
         AudioSource audioSource = audioObj.AddComponent<AudioSource>();
         audioSource.clip = clip;
-        audioSource.volume = _sfxVolume;
+        audioSource.volume = _sfxVolume * vol;
         audioSource.pitch = pitchMultiplier;
 
-        StartCoroutine(PlayAndDelete(audioObj, deleteFunc, loop));
+        StartCoroutine(PlayAndDelete(audioObj, deleteFunc, loop, singular));
     }
 
     public IEnumerator FadeMusicIn(AudioSource track)

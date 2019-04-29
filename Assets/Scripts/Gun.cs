@@ -33,7 +33,7 @@ public class Gun : Weapon
             b.transform.SetParent(Game.Instance.bulletParent);
             Ship.Heat.Add(heat);
 
-            PlaySFX();
+            PlaySFX(false, false);
 
             yield return new WaitForSeconds(_fireInterval);
         }
