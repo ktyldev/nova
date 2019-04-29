@@ -52,10 +52,8 @@ MonoBehaviour:
   weaponData:
   - gameObject: {fileID: 7099160491220438824}
     colour: {r: 1, g: 0, b: 0, a: 1}
-    panels: []
   - gameObject: {fileID: 8998100916790248183}
     colour: {r: 0, g: 1, b: 0, a: 1}
-    panels: []
 --- !u!1 &2023342590597632009
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,8 +514,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  heat: 1
+  heat: 0.3
   colour: {r: 0, g: 1, b: 0, a: 1}
   emitter: {fileID: 1352703372087346270}
   bullet: {fileID: 1949231094303805714, guid: 7c3f9642d89995b4781a558a66da3f03, type: 3}
-  fireRate: 5
+  fireRate: 10

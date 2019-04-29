@@ -21,6 +21,9 @@ public class Bullet : MonoBehaviour
             {
                 r.color = value;
             }
+            var trail = GetComponent<TrailRenderer>();
+            trail.startColor = value;
+            trail.endColor = value;
         }
     }
 
